@@ -1,13 +1,12 @@
 import {StyleSheet} from 'react-native';
-import {SpoqaHanSansNeo} from 'src/styles';
-import {COLOR_PRIMARY} from 'src/styles/color';
+import {colors, SpoqaHanSansNeo} from 'src/styles';
 import {fp, hp} from 'src/utils';
 
 export const styles = StyleSheet.create({
   button: {
     alignContent: 'center',
     justifyContent: 'center',
-    backgroundColor: COLOR_PRIMARY,
+    backgroundColor: colors.primary,
     paddingVertical: hp(15),
     borderRadius: hp(6),
   },
@@ -16,5 +15,6 @@ export const styles = StyleSheet.create({
     fontSize: fp(15),
     fontFamily: SpoqaHanSansNeo.bold,
     textAlign: 'center',
+    letterSpacing: fp(-1),
   },
 });
