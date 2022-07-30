@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {SpoqaHanSansNeo} from 'src/styles';
 import {COLOR_PRIMARY} from 'src/styles/color';
 import {fp, hp} from 'src/utils';
 
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
   label: {
     color: '#ffffff',
     fontSize: fp(15),
-    fontWeight: 'bold',
+    fontFamily: SpoqaHanSansNeo.bold,
     textAlign: 'center',
   },
 });
