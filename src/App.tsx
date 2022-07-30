@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import {HomeScreen} from './screens';
+import {HomeScreen, OnBoardingScreen} from './screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,9 +26,10 @@ const App = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Home"
+          initialRouteName="OnBoarding"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="OnBoarding" component={OnBoardingScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
