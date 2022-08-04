@@ -74,4 +74,27 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     color: colors.text.primary,
   },
+
+  loginOAuthItemListContainer: {
+    flexDirection: 'column',
+  },
+  loginOAuthItemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  loginOAuthIcon: {
+    width: wp(30),
+    height: hp(30),
+    borderRadius: hp(17.5),
+    backgroundColor: '#c4c4c4',
+    marginRight: wp(13),
+  },
+  loginOAuthText: {
+    fontSize: fp(14),
+    fontFamily: SpoqaHanSansNeo.regular,
+    letterSpacing: wp(-1),
+  },
+  loginOAuthItemColumnGap: {
+    marginTop: hp(24),
+  },
 });
