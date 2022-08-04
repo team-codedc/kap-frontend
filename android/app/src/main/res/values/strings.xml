@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">병주고약주고</string>
+    <string name="kakao_app_key">ea5ed276f03f794b8b6a094c203e07aa</string>
 </resources>
