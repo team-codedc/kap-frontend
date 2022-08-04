@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 import {
   Dimensions,
   FlatList,
+  GestureResponderEvent,
+  Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
   Text,
@@ -11,6 +13,8 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {Button} from 'src/components';
+import {OAUTH_TYPES} from 'src/constant';
+import {useBottomSheet} from 'src/hooks';
 import {globalStyles} from 'src/styles';
 import {wp} from 'src/utils';
 
@@ -41,8 +45,11 @@ const ON_BOARDING_ITEMS = [
 ];
 
 export const OnBoardingScreen: React.FC = () => {
-  const [page, setPage] = useState(0);
   const ON_BOARDING_ITEM_WIDTH = SCREEN_WIDTH - wp(50);
+  const [page, setPage] = useState(0);
+  const {BottomSheet, openBottomSheet} = useBottomSheet({
+    title: '로그인 방법을\n선택해주세요 😎',
+  });
 
   const flatListRenderItem = (item: typeof ON_BOARDING_ITEMS[number]) => {
     return (
@@ -65,11 +72,18 @@ export const OnBoardingScreen: React.FC = () => {
     );
   };
 
-  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+  const handleOnScrollFlatList = (
+    event: NativeSyntheticEvent<NativeScrollEvent>,
+  ) => {
     const newPage = Math.round(
       event.nativeEvent.contentOffset.x / ON_BOARDING_ITEM_WIDTH,
     );
     setPage(newPage);
+  };
+
+  const handleOnPressLoginButton = (event: GestureResponderEvent) => {
+    event.preventDefault();
+    openBottomSheet();
   };
 
   return (
@@ -82,7 +96,7 @@ export const OnBoardingScreen: React.FC = () => {
             decelerationRate="fast"
             horizontal
             keyExtractor={item => `item__${item.image}`}
-            onScroll={onScroll}
+            onScroll={handleOnScrollFlatList}
             pagingEnabled
             renderItem={({item}) => flatListRenderItem(item)}
             snapToInterval={ON_BOARDING_ITEM_WIDTH}
@@ -109,7 +123,7 @@ export const OnBoardingScreen: React.FC = () => {
         </View>
 
         <View style={styles.onBoardingBottomContainer}>
-          <Button label="로그인" />
+          <Button label="로그인" onPress={handleOnPressLoginButton} />
           <View style={styles.findAccountTextContainer}>
             <Text style={styles.findAccountText}>계정이 기억나지 않나요? </Text>
             <TouchableOpacity activeOpacity={0.6}>
@@ -117,6 +131,29 @@ export const OnBoardingScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
         </View>
+
+        <BottomSheet>
+          <View>
+            {OAUTH_TYPES.map((oauth, i) => {
+              const isNotFirstElement = i !== 0;
+
+              return (
+                <View
+                  key={oauth.text}
+                  style={[
+                    styles.loginOAuthItemContainer,
+                    isNotFirstElement && styles.loginOAuthItemColumnGap,
+                  ]}>
+                  <Image
+                    source={require('src/assets/kakao.png')}
+                    style={styles.loginOAuthIcon}
+                  />
+                  <Text style={styles.loginOAuthText}>{oauth.text}</Text>
+                </View>
+              );
+            })}
+          </View>
+        </BottomSheet>
       </View>
     </SafeAreaView>
   );
