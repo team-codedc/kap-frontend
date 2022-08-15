@@ -1,42 +1,29 @@
-import React, {useEffect} from 'react';
-import {StatusBar, useColorScheme} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
+import React from 'react';
+import {RecoilRoot} from 'recoil';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-
-import {HomeScreen, OnBoardingScreen} from './screens';
-import {SCREEN} from './constant';
-
-const Stack = createNativeStackNavigator();
+import {useApiError} from './hooks';
+import {Service} from './Service';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      SplashScreen.hide();
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const {handlerError} = useApiError();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        onError: handlerError,
+      },
+      mutations: {
+        onError: handlerError,
+      },
+    },
+  });
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={SCREEN.ON_BOARDING}
-          screenOptions={{headerShown: false}}>
-          <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
-          <Stack.Screen
-            name={SCREEN.ON_BOARDING}
-            component={OnBoardingScreen}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <Service />
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 };
 
