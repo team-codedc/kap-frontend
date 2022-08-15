@@ -13,8 +13,8 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {Button} from 'src/components';
-import {OAUTH_TYPES} from 'src/constant';
-import {useBottomSheet} from 'src/hooks';
+import {OAUTH_TYPE, OAUTH_ITEMS} from 'src/constant';
+import {useBottomSheet, useLogin} from 'src/hooks';
 import {globalStyles} from 'src/styles';
 import {wp} from 'src/utils';
 
@@ -47,9 +47,10 @@ const ON_BOARDING_ITEMS = [
 export const OnBoardingScreen: React.FC = () => {
   const ON_BOARDING_ITEM_WIDTH = SCREEN_WIDTH - wp(50);
   const [page, setPage] = useState(0);
-  const {BottomSheet, openBottomSheet} = useBottomSheet({
+  const {BottomSheet, openBottomSheet, closeBottomSheet} = useBottomSheet({
     title: '로그인 방법을\n선택해주세요 😎',
   });
+  const {login} = useLogin();
 
   const flatListRenderItem = (item: typeof ON_BOARDING_ITEMS[number]) => {
     return (
@@ -84,6 +85,11 @@ export const OnBoardingScreen: React.FC = () => {
   const handleOnPressLoginButton = (event: GestureResponderEvent) => {
     event.preventDefault();
     openBottomSheet();
+  };
+
+  const handleOnPressSocialLoginButton = async (oauthType: OAUTH_TYPE) => {
+    login(oauthType);
+    closeBottomSheet();
   };
 
   return (
@@ -134,22 +140,21 @@ export const OnBoardingScreen: React.FC = () => {
 
         <BottomSheet>
           <View>
-            {OAUTH_TYPES.map((oauth, i) => {
+            {OAUTH_ITEMS.map((oauth, i) => {
               const isNotFirstElement = i !== 0;
 
               return (
-                <View
-                  key={oauth.text}
+                <TouchableOpacity
+                  key={oauth.id}
                   style={[
                     styles.loginOAuthItemContainer,
                     isNotFirstElement && styles.loginOAuthItemColumnGap,
-                  ]}>
-                  <Image
-                    source={require('src/assets/kakao.png')}
-                    style={styles.loginOAuthIcon}
-                  />
+                  ]}
+                  activeOpacity={0.6}
+                  onPress={() => handleOnPressSocialLoginButton(oauth.id)}>
+                  <Image source={oauth.icon} style={styles.loginOAuthIcon} />
                   <Text style={styles.loginOAuthText}>{oauth.text}</Text>
-                </View>
+                </TouchableOpacity>
               );
             })}
           </View>
