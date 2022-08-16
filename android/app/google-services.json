@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "694755819827",
+    "project_id": "kiss-and-punch",
+    "storage_bucket": "kiss-and-punch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:694755819827:android:258b03b0982311b7f13e46",
+        "android_client_info": {
+          "package_name": "team.codedc.kap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "694755819827-buf8invund9e88j33nde9ntn4l65g1a0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "team.codedc.kap",
+            "certificate_hash": "13e919ae6a47e08af4ad0405864d1f9e797da234"
+          }
+        },
+        {
+          "client_id": "694755819827-9imvdrpmi5uoufr3ufdnhmairgeffc4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZbReZUCIgRr8JBuLZxCv4t__tQqPwb7o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "694755819827-9imvdrpmi5uoufr3ufdnhmairgeffc4q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "694755819827-jk29k03t00tii7824kjv0bakcmfvgjri.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "team.codedc.kap"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
