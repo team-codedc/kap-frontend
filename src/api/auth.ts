@@ -10,8 +10,27 @@ export const kakaoLogin = async (
 ): Promise<APIResponse<SocialLoginResponse>> => {
   const {data} = await instance.post<APIResponse<SocialLoginResponse>>(
     API_SUFFIX.AUTH_KAKAO,
+    {},
     {
-      socialAccessToken: accessToken,
+      params: {
+        code: accessToken,
+      },
+    },
+  );
+
+  return data;
+};
+
+export const googleLogin = async (
+  idToken: string,
+): Promise<APIResponse<SocialLoginResponse>> => {
+  const {data} = await instance.post<APIResponse<SocialLoginResponse>>(
+    API_SUFFIX.AUTH_GOOGLE,
+    {},
+    {
+      params: {
+        code: idToken,
+      },
     },
   );
 

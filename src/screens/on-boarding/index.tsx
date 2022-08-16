@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -13,8 +13,8 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {Button} from 'src/components';
-import {OAUTH_TYPE, OAUTH_ITEMS} from 'src/constant';
-import {useBottomSheet, useLogin} from 'src/hooks';
+import {OAUTH_TYPE, OAUTH_ITEMS, SCREEN} from 'src/constant';
+import {useBottomSheet, useLogin, useProfile, useNavigation} from 'src/hooks';
 import {globalStyles} from 'src/styles';
 import {wp} from 'src/utils';
 
@@ -50,7 +50,9 @@ export const OnBoardingScreen: React.FC = () => {
   const {BottomSheet, openBottomSheet, closeBottomSheet} = useBottomSheet({
     title: '로그인 방법을\n선택해주세요 😎',
   });
+  const {navigate} = useNavigation();
   const {login} = useLogin();
+  const {data: profile} = useProfile();
 
   const flatListRenderItem = (item: typeof ON_BOARDING_ITEMS[number]) => {
     return (
@@ -91,6 +93,12 @@ export const OnBoardingScreen: React.FC = () => {
     login(oauthType);
     closeBottomSheet();
   };
+
+  useEffect(() => {
+    if (profile) {
+      navigate(SCREEN.HOME);
+    }
+  }, [profile]);
 
   return (
     <SafeAreaView style={globalStyles.safeAreaView}>

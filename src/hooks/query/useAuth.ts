@@ -1,14 +1,13 @@
-import {useSetRecoilState} from 'recoil';
-import {useMutation} from '@tanstack/react-query';
+import {useRecoilState, useSetRecoilState} from 'recoil';
+import {useMutation, useQuery} from '@tanstack/react-query';
 import {globalAccessTokenState} from 'src/store';
 import {
   APIErrorResponse,
-  APIResponse,
   getUserProfile,
+  googleLogin,
   issueAccessToken,
   kakaoLogin,
   setAPIAccessToken,
-  UserProfileResponse,
 } from 'src/api';
 import {AxiosError} from 'axios';
 import {OAUTH_TYPE} from 'src/constant';
@@ -17,6 +16,13 @@ import {
   login as kakaoSDKLogin,
 } from '@react-native-seoul/kakao-login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+import Toast from 'react-native-toast-message';
+import {useApiError} from '../uesApiError';
+import {CustomException} from 'src/exceptions';
 
 type UseLoginParameter = OAUTH_TYPE | {refreshToken: string};
 type GetCredentialsResponse = Promise<{
@@ -30,15 +36,57 @@ export const useLogin = () => {
   const getCredentialsBySocialLogin = async (
     oauthType: OAUTH_TYPE,
   ): GetCredentialsResponse => {
-    switch (oauthType) {
-      case 'KAKAO':
-        const token: KakaoOAuthToken = await kakaoSDKLogin();
-        const {
-          result: {accessToken, refreshToken},
-        } = await kakaoLogin(token.accessToken);
-        return {accessToken, refreshToken};
-      default:
-        return {accessToken: null, refreshToken: null};
+    try {
+      switch (oauthType) {
+        case 'KAKAO': {
+          const token: KakaoOAuthToken = await kakaoSDKLogin();
+          const {
+            result: {accessToken, refreshToken},
+          } = await kakaoLogin(token.accessToken);
+          return {accessToken, refreshToken};
+        }
+        case 'GOOGLE':
+          await GoogleSignin.hasPlayServices();
+          const userInfo = await GoogleSignin.signIn();
+          if (!userInfo.serverAuthCode) {
+            throw new CustomException('구글 로그인 중 오류가 발생했어요');
+          }
+
+          const {
+            result: {accessToken, refreshToken},
+          } = await googleLogin(userInfo.serverAuthCode);
+          return {accessToken, refreshToken};
+        default:
+          return {accessToken: null, refreshToken: null};
+      }
+    } catch (error: any) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        Toast.show({
+          type: 'warning',
+          text1: '구글 로그인이 취소되었어요 :(',
+        });
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        Toast.show({
+          type: 'warning',
+          text1: 'Google Play 서비스가 필요해요',
+          text2: 'Google Play가 없거나 최신버전이 아닌지 확인해주세요',
+        });
+      } else if (error.code === 'RNKakaoLogins') {
+        Toast.show({
+          type: 'warning',
+          text1: '카카오 로그인이 취소되었어요 :(',
+        });
+      } else if (error instanceof CustomException) {
+        Toast.show({
+          type: 'error',
+          text1: error.message,
+        });
+      } else {
+        throw error;
+      }
+
+      return {accessToken: null, refreshToken: null};
     }
   };
 
@@ -69,20 +117,61 @@ export const useLogin = () => {
     AsyncStorage.setItem('@token', refreshToken);
     setGlobalAccessToken(accessToken);
     setAPIAccessToken(accessToken);
-    return await getUserProfile();
+    return accessToken;
   };
 
-  const {mutate} = useMutation<
-    APIResponse<UserProfileResponse>,
+  const {handlerError} = useApiError({default: () => {}});
+  const {mutate, data, ...mutations} = useMutation<
+    string,
     AxiosError<APIErrorResponse>,
     UseLoginParameter
   >(['useLogin'], login, {
-    onSuccess: data => {
-      console.log(data);
-      return;
-    },
+    onError: handlerError,
     retry: 0,
   });
 
-  return {login: mutate};
+  return {login: mutate, profile: data, ...mutations};
+};
+
+export const useProfile = () => {
+  const [globalAccessToken, setGlobalAccessToken] = useRecoilState(
+    globalAccessTokenState,
+  );
+  const {handlerError} = useApiError();
+
+  return useQuery(
+    ['useProfile'],
+    async () => {
+      if (globalAccessToken === '') {
+        const refreshToken = await AsyncStorage.getItem('@token');
+        if (!refreshToken) {
+          throw new CustomException('리프레시 토큰을 찾을 수 없어요');
+        }
+        const {result} = await issueAccessToken(refreshToken);
+        setGlobalAccessToken(result.accessToken);
+        setAPIAccessToken(result.accessToken);
+      }
+
+      const {result} = await getUserProfile();
+      return result;
+    },
+    {
+      onSuccess: profile => {
+        Toast.show({
+          type: 'success',
+          text1: `${profile.name}님 환영해요!`,
+          text2: '저희 병주고약주고를 이용해주셔서 감사합니다 :)',
+          visibilityTime: 1000,
+        });
+      },
+      onError: error => {
+        console.log(error);
+        setGlobalAccessToken('');
+        setAPIAccessToken(null);
+        handlerError(error);
+      },
+      retry: 0,
+      staleTime: 60 * 60 * 10,
+    },
+  );
 };

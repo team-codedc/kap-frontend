@@ -3,6 +3,7 @@ import axios from 'axios';
 export const API_SUFFIX = {
   BASE_URL: __DEV__ ? 'http://localhost:4000/api' : '',
   AUTH_KAKAO: '/auth/kakao',
+  AUTH_GOOGLE: '/auth/google',
   AUTH_REFRESH: '/auth/refresh',
   USER_PROFILE: '/users/profile',
 };

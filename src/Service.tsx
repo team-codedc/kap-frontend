@@ -4,30 +4,23 @@ import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {SCREEN} from './constant';
-import {useLogin} from './hooks';
+import {SCREEN, StackParamList} from './constant';
+import {useProfile} from './hooks';
 import {HomeScreen, OnBoardingScreen} from './screens';
 import {Toast} from './components';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackParamList>();
+
 export const Service: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {login} = useLogin();
+  const {isFetched} = useProfile();
 
   useEffect(() => {
-    const autoLoigin = async () => {
-      const refreshToken = await AsyncStorage.getItem('@token');
-      if (refreshToken) {
-        login({refreshToken});
-      }
-
+    if (isFetched) {
       SplashScreen.hide();
-    };
-
-    autoLoigin();
-  }, []);
+    }
+  }, [isFetched]);
 
   return (
     <SafeAreaProvider>
