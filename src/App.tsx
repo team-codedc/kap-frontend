@@ -1,42 +1,43 @@
-import React, {useEffect} from 'react';
-import {StatusBar, useColorScheme} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
+import React from 'react';
+import {RecoilRoot} from 'recoil';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {useApiError} from './hooks';
+import {Service} from './Service';
 
-import {HomeScreen, OnBoardingScreen} from './screens';
-import {SCREEN} from './constant';
-
-const Stack = createNativeStackNavigator();
+GoogleSignin.configure({
+  scopes: [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+  ],
+  webClientId:
+    '694755819827-sr7i8bj4i25cfnfep5q7k0ojlctkub6k.apps.googleusercontent.com',
+  offlineAccess: true,
+  forceCodeForRefreshToken: true,
+  iosClientId:
+    '694755819827-jk29k03t00tii7824kjv0bakcmfvgjri.apps.googleusercontent.com', // [iOS] if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+});
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      SplashScreen.hide();
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const {handlerError} = useApiError();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        onError: handlerError,
+      },
+      mutations: {
+        onError: handlerError,
+      },
+    },
+  });
 
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={SCREEN.ON_BOARDING}
-          screenOptions={{headerShown: false}}>
-          <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
-          <Stack.Screen
-            name={SCREEN.ON_BOARDING}
-            component={OnBoardingScreen}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    <QueryClientProvider client={queryClient}>
+      <RecoilRoot>
+        <Service />
+      </RecoilRoot>
+    </QueryClientProvider>
   );
 };
 
