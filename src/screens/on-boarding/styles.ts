@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   onBoardingFlatListItemImage: {
-    width: wp(170),
-    height: hp(170),
+    width: wp(230),
+    height: hp(230),
     marginBottom: hp(40),
   },
   onBoardingFlatListItemTitle: {

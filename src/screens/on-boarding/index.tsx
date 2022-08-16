@@ -13,7 +13,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {Button} from 'src/components';
-import {OAUTH_TYPES} from 'src/constant';
+import {OAUTH_TYPES, ON_BOARDING_ITEMS} from 'src/constant';
 import {useBottomSheet} from 'src/hooks';
 import {globalStyles} from 'src/styles';
 import {wp} from 'src/utils';
@@ -21,28 +21,6 @@ import {wp} from 'src/utils';
 import {styles} from './styles';
 
 const SCREEN_WIDTH = Math.round(Dimensions.get('window').width);
-const ON_BOARDING_ITEMS = [
-  {
-    image: 'red',
-    title: '안녕하세요',
-    description: '아에이오우\n가나다라마바사',
-  },
-  {
-    image: 'orange',
-    title: '안녕하세요2',
-    description: '아에이오우\n가나다라마바사',
-  },
-  {
-    image: 'yellow',
-    title: '안녕하세요3',
-    description: '아에이오우\n가나다라마바사',
-  },
-  {
-    image: 'green',
-    title: '안녕하세요4',
-    description: '아에이오우\n가나다라마바사',
-  },
-];
 
 export const OnBoardingScreen: React.FC = () => {
   const ON_BOARDING_ITEM_WIDTH = SCREEN_WIDTH - wp(50);
@@ -58,11 +36,9 @@ export const OnBoardingScreen: React.FC = () => {
           styles.onBoardingFlatListItemContainer,
           {width: ON_BOARDING_ITEM_WIDTH},
         ]}>
-        <View
-          style={[
-            styles.onBoardingFlatListItemImage,
-            {backgroundColor: item.image},
-          ]}
+        <Image
+          source={item.image}
+          style={[styles.onBoardingFlatListItemImage]}
         />
         <Text style={styles.onBoardingFlatListItemTitle}>{item.title}</Text>
         <Text style={styles.onBoardingFlatListItemDescription}>
