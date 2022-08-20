@@ -1,4 +1,5 @@
 import React from 'react';
+import {Platform} from 'react-native';
 import {
   default as ToastMessage,
   BaseToast,
@@ -9,10 +10,12 @@ import {
 
 import {styles} from './styles';
 
+const forAndroidStyles = Platform.OS === 'android' ? styles.forAndroid : {};
+
 const toastConfig = {
   success: (props: BaseToastProps) => (
     <BaseToast
-      style={[styles.baseToast, styles.successToast]}
+      style={[styles.baseToast, styles.successToast, forAndroidStyles]}
       contentContainerStyle={styles.contentContainer}
       text1Style={styles.toastText1}
       text2Style={styles.toastText2}
@@ -21,7 +24,7 @@ const toastConfig = {
   ),
   error: (props: BaseToastProps) => (
     <ErrorToast
-      style={[styles.baseToast, styles.errorToast]}
+      style={[styles.baseToast, styles.errorToast, forAndroidStyles]}
       contentContainerStyle={styles.contentContainer}
       text1Style={styles.toastText1}
       text2Style={styles.toastText2}
@@ -30,7 +33,7 @@ const toastConfig = {
   ),
   info: (props: BaseToastProps) => (
     <InfoToast
-      style={[styles.baseToast, styles.infoToast]}
+      style={[styles.baseToast, styles.infoToast, forAndroidStyles]}
       contentContainerStyle={styles.contentContainer}
       text1Style={styles.toastText1}
       text2Style={styles.toastText2}
@@ -39,7 +42,7 @@ const toastConfig = {
   ),
   warning: (props: BaseToastProps) => (
     <BaseToast
-      style={[styles.baseToast, styles.warningToast]}
+      style={[styles.baseToast, styles.warningToast, forAndroidStyles]}
       contentContainerStyle={styles.contentContainer}
       text1Style={styles.toastText1}
       text2Style={styles.toastText2}
