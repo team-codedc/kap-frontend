@@ -43,6 +43,8 @@
 	<string>1</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>ea5ed276f03f794b8b6a094c203e07aa</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaokompassauth</string>
@@ -51,6 +53,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MBXAccessToken</key>
+	<string>sk.eyJ1IjoiaGFuc2VvMDUwNyIsImEiOiJjbDcxbW5xY3UwbG83M3VvM2V0cTNnNzd5In0.CMY51C5zceW9YbXN2usEXA</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>

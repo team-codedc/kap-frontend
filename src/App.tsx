@@ -2,9 +2,14 @@ import React from 'react';
 import {RecoilRoot} from 'recoil';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import MapboxGL from '@rnmapbox/maps';
 
 import {useApiError} from './hooks';
 import {Service} from './Service';
+
+MapboxGL.setAccessToken(
+  'pk.eyJ1IjoiaGFuc2VvMDUwNyIsImEiOiJja3U2ZXVtZGUwZm9vMnBwYXNvY2VweDFtIn0.rdqGjFltqrlkS-V9sEWrfg',
+);
 
 GoogleSignin.configure({
   scopes: [

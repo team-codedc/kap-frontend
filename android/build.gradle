@@ -10,6 +10,8 @@ buildscript {
         targetSdkVersion = 31
         kotlinVersion = '1.6.0'
         googlePlayServicesAuthVersion = "19.2.0"
+        
+        RNMapboxMapsImpl = "mapbox"
 
         if (System.properties['os.arch'] == "aarch64") {
             // For M1 Users we need to use the NDK 24 which added support for aarch64
@@ -45,6 +47,19 @@ allprojects {
         maven {
             // Android JSC is installed from npm
             url("$rootDir/../node_modules/jsc-android/dist")
+        }
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username). 
+                username = 'mapbox'
+                // Use the secret token you stored in gradle.properties as the password
+                password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
+            }
         }
         mavenCentral {
             // We don't want to fetch react-native from Maven Central as there are

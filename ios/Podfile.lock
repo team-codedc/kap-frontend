@@ -128,6 +128,15 @@ PODS:
   - KakaoSDKUser (2.9.0):
     - KakaoSDKAuth (= 2.9.0)
   - libevent (2.1.12)
+  - MapboxCommon (22.1.0)
+  - MapboxCoreMaps (10.7.0):
+    - MapboxCommon (~> 22.1)
+  - MapboxMaps (10.7.0):
+    - MapboxCommon (= 22.1.0)
+    - MapboxCoreMaps (= 10.7.0)
+    - MapboxMobileEvents (= 1.0.8)
+    - Turf (~> 2.0)
+  - MapboxMobileEvents (1.0.8)
   - OpenSSL-Universal (1.1.1100)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
@@ -417,10 +426,22 @@ PODS:
   - RNGoogleSignin (8.0.0):
     - GoogleSignIn (~> 6.2.2)
     - React-Core
+  - rnmapbox-maps (10.0.0-beta.25):
+    - MapboxMaps (~> 10.7.0)
+    - React
+    - React-Core
+    - rnmapbox-maps/DynamicLibrary (= 10.0.0-beta.25)
+    - Turf
+  - rnmapbox-maps/DynamicLibrary (10.0.0-beta.25):
+    - MapboxMaps (~> 10.7.0)
+    - React
+    - React-Core
+    - Turf
   - RNScreens (3.15.0):
     - React-Core
     - React-RCTImage
   - SocketRocket (0.6.0)
+  - Turf (2.5.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -486,6 +507,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
+  - "rnmapbox-maps (from `../node_modules/@rnmapbox/maps`)"
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -517,8 +539,13 @@ SPEC REPOS:
     - KakaoSDKTemplate
     - KakaoSDKUser
     - libevent
+    - MapboxCommon
+    - MapboxCoreMaps
+    - MapboxMaps
+    - MapboxMobileEvents
     - OpenSSL-Universal
     - SocketRocket
+    - Turf
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -594,6 +621,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNGoogleSignin:
     :path: "../node_modules/@react-native-google-signin/google-signin"
+  rnmapbox-maps:
+    :path: "../node_modules/@rnmapbox/maps"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -632,6 +661,10 @@ SPEC CHECKSUMS:
   KakaoSDKTemplate: eaf03ad5e44d374cbfff85588552a5627cd0519c
   KakaoSDKUser: 37e92bfc1d36b339420952080a8d31c217a38a63
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  MapboxCommon: 1e26303f61682e6307a10162792ea0f018d037b9
+  MapboxCoreMaps: 929f2cf9de62782347db31d6c04dc1b6b4ba80ad
+  MapboxMaps: c7df1efe838d7acb54929ada9ee735949137fde9
+  MapboxMobileEvents: febdd92835daa258ca1c1faad0821c0b3394ef40
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
   RCT-Folly: b9d9fe1fc70114b751c076104e52f3b1b5e5a95a
   RCTRequired: ae07282b2ec9c90d7eb98251603bc3f82403d239
@@ -663,11 +696,13 @@ SPEC CHECKSUMS:
   ReactCommon: e30ec17dfb1d4c4f3419eac254350d6abca6d5a2
   RNCAsyncStorage: b2489b49e38c85e10ed45a888d13a2a4c7b32ea1
   RNGoogleSignin: b2179ba653c759b936404a7746fc5302f9de6a5a
+  rnmapbox-maps: 1a68a37f3d28e084423495d23b2a4e4aab6c36e1
   RNScreens: 4a1af06327774490d97342c00aee0c2bafb497b7
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  Turf: 8adf034c2963a0e587b979c51b5c12c396e29c44
   Yoga: 7ab6e3ee4ce47d7b789d1cb520163833e515f452
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: b3b29f125e07f0bbbd905801d1fc956796b905e8
+PODFILE CHECKSUM: dcc73406856ce7a9541765a799469bd6541447ef
 
 COCOAPODS: 1.11.3

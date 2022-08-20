@@ -16,6 +16,7 @@
     "@react-native-seoul/kakao-login": "^4.2.3",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
+    "@rnmapbox/maps": "rnmapbox/maps#main",
     "@tanstack/react-query": "^4.1.3",
     "axios": "^0.27.2",
     "react": "18.0.0",

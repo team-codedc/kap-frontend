@@ -7,7 +7,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {SCREEN, StackParamList} from './constant';
 import {useProfile} from './hooks';
-import {HomeScreen, OnBoardingScreen} from './screens';
+import {HomeScreen, MapScreen, OnBoardingScreen} from './screens';
 import {Toast} from './components';
 
 const Stack = createNativeStackNavigator<StackParamList>();
@@ -27,9 +27,10 @@ export const Service: React.FC = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={SCREEN.ON_BOARDING}
+          initialRouteName={SCREEN.MAP}
           screenOptions={{headerShown: false}}>
           <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
+          <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
           <Stack.Screen
             name={SCREEN.ON_BOARDING}
             component={OnBoardingScreen}
