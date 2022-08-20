@@ -1,18 +1,37 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MapboxGL from '@rnmapbox/maps';
-import React from 'react';
+import {useQueryClient} from '@tanstack/react-query';
+import React, {useRef} from 'react';
 import {View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useSetRecoilState} from 'recoil';
+import {Button, MapView} from 'src/components';
+import {globalAccessTokenState} from 'src/store';
 import {styles} from './styles';
 
 export const MapScreen: React.FC = () => {
+  const cameraRef = useRef<MapboxGL.Camera>(null);
+  const queryClient = useQueryClient();
+  const setGlobalAccessToken = useSetRecoilState(globalAccessTokenState);
+
+  const handlePressLogout = async () => {
+    queryClient.getQueryCache().clear();
+    setGlobalAccessToken('');
+    await AsyncStorage.setItem('@token', '');
+  };
+
   return (
     <View style={styles.screenContainer}>
-      <MapboxGL.MapView
-        style={styles.mapbox}
-        styleURL="mapbox://styles/hanseo0507/cl71ocl8q000015td0zgfengv"
-        logoEnabled={false}
-        attributionEnabled={false}
-        scaleBarEnabled={false}
-      />
+      <SafeAreaView style={styles.safeAreaView}>
+        <View style={styles.overlay}>
+          <Button
+            label="로그아웃"
+            style={styles.bottomButtonCustom}
+            onPress={handlePressLogout}
+          />
+        </View>
+      </SafeAreaView>
+      <MapView cameraRef={cameraRef} style={styles.mapbox} showHeading />
     </View>
   );
 };

@@ -27,7 +27,7 @@ export const Service: React.FC = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={SCREEN.MAP}
+          initialRouteName={SCREEN.ON_BOARDING}
           screenOptions={{headerShown: false}}>
           <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
           <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
