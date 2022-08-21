@@ -7,7 +7,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {SCREEN, StackParamList} from './constant';
 import {useProfile} from './hooks';
-import {HomeScreen, OnBoardingScreen} from './screens';
+import {HomeScreen, MapScreen, OnBoardingScreen} from './screens';
 import {Toast} from './components';
 import {useRecoilState} from 'recoil';
 import {globalAccessTokenState} from './store';
@@ -31,12 +31,13 @@ export const Service: React.FC = () => {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={
-            globalAccessToken ? SCREEN.HOME : SCREEN.ON_BOARDING
+            globalAccessToken ? SCREEN.MAP : SCREEN.ON_BOARDING
           }
           screenOptions={{headerShown: false}}>
           {globalAccessToken ? (
             <>
               <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
+              <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
             </>
           ) : (
             <>
