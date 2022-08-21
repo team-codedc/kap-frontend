@@ -14,7 +14,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {Button} from 'src/components';
 import {OAUTH_TYPE, OAUTH_ITEMS, ON_BOARDING_ITEMS, SCREEN} from 'src/constant';
-import {useBottomSheet, useLogin, useProfile, useNavigation} from 'src/hooks';
+import {useBottomSheet, useLogin, useNavigation} from 'src/hooks';
 import {globalStyles} from 'src/styles';
 import {wp} from 'src/utils';
 
@@ -29,8 +29,7 @@ export const OnBoardingScreen: React.FC = () => {
     title: '로그인 방법을\n선택해주세요 😎',
   });
   const {navigate} = useNavigation();
-  const {login} = useLogin();
-  const {data: profile} = useProfile();
+  const {login, profile} = useLogin();
 
   const flatListRenderItem = (item: typeof ON_BOARDING_ITEMS[number]) => {
     return (

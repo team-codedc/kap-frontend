@@ -9,12 +9,15 @@ import {SCREEN, StackParamList} from './constant';
 import {useProfile} from './hooks';
 import {HomeScreen, MapScreen, OnBoardingScreen} from './screens';
 import {Toast} from './components';
+import {useRecoilState} from 'recoil';
+import {globalAccessTokenState} from './store';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const Service: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const {isFetched} = useProfile();
+  const [globalAccessToken] = useRecoilState(globalAccessTokenState);
 
   useEffect(() => {
     if (isFetched) {
@@ -27,14 +30,23 @@ export const Service: React.FC = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={SCREEN.ON_BOARDING}
+          initialRouteName={
+            globalAccessToken ? SCREEN.MAP : SCREEN.ON_BOARDING
+          }
           screenOptions={{headerShown: false}}>
-          <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
-          <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
-          <Stack.Screen
-            name={SCREEN.ON_BOARDING}
-            component={OnBoardingScreen}
-          />
+          {globalAccessToken ? (
+            <>
+              <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
+              <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
+            </>
+          ) : (
+            <>
+              <Stack.Screen
+                name={SCREEN.ON_BOARDING}
+                component={OnBoardingScreen}
+              />
+            </>
+          )}
         </Stack.Navigator>
         <Toast />
       </NavigationContainer>

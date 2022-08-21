@@ -120,17 +120,19 @@ export const useLogin = () => {
     return accessToken;
   };
 
+  const {data: profile, refetch} = useProfile();
   const {handlerError} = useApiError({default: () => {}});
-  const {mutate, data, ...mutations} = useMutation<
+  const {mutate, ...mutations} = useMutation<
     string,
     AxiosError<APIErrorResponse>,
     UseLoginParameter
   >(['useLogin'], login, {
+    onSuccess: () => refetch(),
     onError: handlerError,
     retry: 0,
   });
 
-  return {login: mutate, profile: data, ...mutations};
+  return {login: mutate, profile, ...mutations};
 };
 
 export const useProfile = () => {
@@ -145,7 +147,10 @@ export const useProfile = () => {
       if (globalAccessToken === '') {
         const refreshToken = await AsyncStorage.getItem('@token');
         if (!refreshToken) {
-          throw new CustomException('리프레시 토큰을 찾을 수 없어요');
+          throw new CustomException(
+            'NOT_FOUND_TOKEN',
+            '리프레시 토큰을 찾을 수 없어요',
+          );
         }
         const {result} = await issueAccessToken(refreshToken);
         setGlobalAccessToken(result.accessToken);
@@ -165,10 +170,18 @@ export const useProfile = () => {
         });
       },
       onError: error => {
-        console.log(error);
         setGlobalAccessToken('');
         setAPIAccessToken(null);
-        handlerError(error);
+
+        // 에러가 CustomException이 아니거나
+        // 에러가 CustomException인 경우 id가 NOT_FOUND_TOKEN이 아닌경우
+
+        if (
+          !(error instanceof CustomException) ||
+          (error instanceof CustomException && error.id !== 'NOT_FOUND_TOKEN')
+        ) {
+          handlerError(error);
+        }
       },
       retry: 0,
       staleTime: 60 * 60 * 10,
