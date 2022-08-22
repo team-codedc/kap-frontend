@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StatusBar, useColorScheme} from 'react-native';
+import {StatusBar, useColorScheme, View} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -7,7 +7,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {SCREEN, StackParamList} from './constant';
 import {useProfile} from './hooks';
-import {HomeScreen, MapScreen, OnBoardingScreen} from './screens';
+import {MapScreen, OnBoardingScreen} from './screens';
 import {Toast} from './components';
 import {useRecoilState} from 'recoil';
 import {globalAccessTokenState} from './store';
@@ -25,18 +25,20 @@ export const Service: React.FC = () => {
     }
   }, [isFetched]);
 
+  if (!isFetched) {
+    return <View />;
+  }
+
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={
-            globalAccessToken ? SCREEN.MAP : SCREEN.ON_BOARDING
-          }
+          initialRouteName={globalAccessToken ? SCREEN.MAP : SCREEN.ON_BOARDING}
           screenOptions={{headerShown: false}}>
           {globalAccessToken ? (
             <>
-              <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
+              {/*<Stack.Screen name={SCREEN.HOME} component={HomeScreen} />*/}
               <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
             </>
           ) : (
