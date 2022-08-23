@@ -7,13 +7,13 @@ import {GlobalNavigationBar} from 'src/components';
 import {styles} from './styles';
 
 export interface DefaultLayoutProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const DefaultLayout: React.FC<DefaultLayoutProps> = ({children}) => {
   return (
-    <SafeAreaView style={styles.DefaultLayoutContainer}>
-      <View style={styles.DefaultLayoutWrapper}>{children}</View>
+    <SafeAreaView style={styles.defaultLayoutContainer}>
+      <View style={styles.defaultLayoutWrapper}>{children}</View>
       <GlobalNavigationBar />
     </SafeAreaView>
   );
