@@ -71,7 +71,7 @@ export const OnBoardingScreen: React.FC = () => {
 
   useEffect(() => {
     if (profile) {
-      navigate(SCREEN.HOME);
+      navigate(SCREEN.MAP);
     }
   }, [profile]);
 
