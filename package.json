@@ -1,6 +1,6 @@
 {
   "name": "kap-frontend",
-  "version": "0.0.2-beta",
+  "version": "0.0.21-beta",
   "private": true,
   "scripts": {
     "prepare": "husky install",
