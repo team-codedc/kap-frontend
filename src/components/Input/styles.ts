@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     fontFamily: SpoqaHanSansNeo.bold,
   },
   input: {
-    borderBottomColor: '#E5E5E5',
+    borderBottomColor: colors.gray,
     borderBottomWidth: wp(1),
     marginTop: hp(-35),
   },
