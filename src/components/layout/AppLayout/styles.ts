@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingRight: wp(25),
     paddingLeft: wp(25),
-    borderRadius: 17,
+    borderRadius: hp(20),
   },
   layout_exit_button: {
     width: wp(29),
