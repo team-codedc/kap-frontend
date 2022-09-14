@@ -1,7 +1,15 @@
 import {StyleSheet} from 'react-native';
-import {hp, wp} from 'src/utils';
+import {colors, SpoqaHanSansNeo} from 'src/styles';
+import {fp, hp, wp} from 'src/utils';
 
 export const styles = StyleSheet.create({
+  title: {
+    fontSize: fp(25),
+    fontFamily: SpoqaHanSansNeo.bold,
+    color: colors.black,
+    marginBottom: hp(30),
+    marginTop: hp(10),
+  },
   appLayoutContainer: {
     flex: 2,
   },
