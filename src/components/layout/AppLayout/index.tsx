@@ -13,7 +13,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({title, children}) => {
       <View style={styles.appLayoutWrapper}>
         <TouchableOpacity>
           <Image source={require('src/assets/privacy-exit-button.png')} />
-          <Text>{title}</Text>
+          <Text style={styles.title}>{title}</Text>
         </TouchableOpacity>
         {children}
       </View>
