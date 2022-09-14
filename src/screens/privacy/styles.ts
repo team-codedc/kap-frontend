@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     fontFamily: SpoqaHanSansNeo.bold,
     color: colors.black,
     marginBottom: hp(30),
+    marginTop: hp(10),
   },
   privacyButtonWrapper: {
     width: wp(340),
