@@ -8,22 +8,22 @@ export const OpenChallengeStep1Screen: React.FC = () => {
   const CHALLENGE_CATEGORY_ITEMS = [
     {
       text: '나만의 카테고리로 시작할래요!',
-      icon: require('src/assets/3d-fluency-idea.png'),
+      icon: require('src/assets/on-board-1.png'),
       category: 'etc',
     },
     {
       text: '분리수거 챌린지를 만들고 싶어요!',
-      icon: require('src/assets/3d-fluency-idea.png'),
+      icon: require('src/assets/on-board-1.png'),
       category: 'separateTheTrash',
     },
     {
       text: '걷기 챌린지를 만들고 싶어요!',
-      icon: require('src/assets/3d-fluency-idea.png'),
+      icon: require('src/assets/on-board-2.png'),
       category: 'walking',
     },
     {
       text: '샴푸 줄이기 챌린지를 만들고 싶어요!',
-      icon: require('src/assets/3d-fluency-idea.png'),
+      icon: require('src/assets/on-board-3.png'),
       category: 'reduceShampoo',
     },
   ];
