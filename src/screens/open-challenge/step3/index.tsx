@@ -1,8 +1,7 @@
 import React from 'react';
 import {Image, TextInput, TouchableOpacity, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useForm, Controller} from 'react-hook-form';
-import {Button as CommonButton, TextArea} from 'src/components';
+import {AppLayout, Button as CommonButton, TextArea} from 'src/components';
 import {styles} from './styles';
 import * as ImagePicker from 'react-native-image-picker';
 
@@ -25,41 +24,41 @@ export const OpenChallengeStep3Screen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView>
-      <View style={{padding: 20}}>
-        <Controller
-          control={control}
-          render={({field: {onChange, onBlur, value}}) => (
-            <View style={styles.ChallengeNameContainer}>
-              <TouchableOpacity
-                onPress={() =>
-                  ImagePicker.launchImageLibrary(
-                    {
-                      mediaType: 'photo',
-                      includeBase64: false,
-                      maxHeight: 200,
-                      maxWidth: 200,
-                    },
-                    response => {
-                      console.log(response);
-                    },
-                  )
-                }
-                style={styles.GalleryContainer}>
-                <Image source={require('src/assets/gallery.png')} />
-              </TouchableOpacity>
-              <TextInput
-                style={styles.ChallengeNameInput}
-                onBlur={onBlur}
-                onChangeText={v => onChange(v)}
-                value={value}
-                placeholder="챌린지명 (예: 한강 쓰레기 분리수거)"
-              />
-            </View>
-          )}
-          name="name"
-          rules={{required: true}}
-        />
+    <AppLayout direction="row" title="챌린지 만들기">
+      <Controller
+        control={control}
+        render={({field: {onChange, onBlur, value}}) => (
+          <View style={styles.challengeNameContainer}>
+            <TouchableOpacity
+              onPress={() =>
+                ImagePicker.launchImageLibrary(
+                  {
+                    mediaType: 'photo',
+                    includeBase64: false,
+                    maxHeight: 200,
+                    maxWidth: 200,
+                  },
+                  response => {
+                    console.log(response);
+                  },
+                )
+              }
+              style={styles.galleryContainer}>
+              <Image source={require('src/assets/gallery.png')} />
+            </TouchableOpacity>
+            <TextInput
+              style={styles.challengeNameInput}
+              onBlur={onBlur}
+              onChangeText={v => onChange(v)}
+              value={value}
+              placeholder="챌린지명 (예: 한강 쓰레기 분리수거)"
+            />
+          </View>
+        )}
+        name="name"
+        rules={{required: true}}
+      />
+      <View>
         <Controller
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
@@ -75,6 +74,8 @@ export const OpenChallengeStep3Screen: React.FC = () => {
           name="description"
           rules={{required: true}}
         />
+      </View>
+      <View>
         <Controller
           control={control}
           render={({field: {onChange, onBlur, value}}) => (
@@ -90,8 +91,10 @@ export const OpenChallengeStep3Screen: React.FC = () => {
           name="rule"
           rules={{required: true}}
         />
+      </View>
+      <View style={styles.footerButton}>
         <CommonButton onPress={handleSubmit(onSubmit)} label="다음으로" />
       </View>
-    </SafeAreaView>
+    </AppLayout>
   );
 };
