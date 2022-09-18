@@ -20,7 +20,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           <View>
             <TouchableOpacity style={styles.directionRowContainer}>
               <Image source={require('src/assets/privacy-exit-button.png')} />
-              <Text style={styles.rowTitle}>{title}</Text>
+              {title && <Text style={styles.rowTitle}>{title}</Text>}
             </TouchableOpacity>
           </View>
           {children}
@@ -31,7 +31,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             <TouchableOpacity>
               <Image source={require('src/assets/privacy-exit-button.png')} />
             </TouchableOpacity>
-            <Text style={styles.title}>{title}</Text>
+            {title && <Text style={styles.rowTitle}>{title}</Text>}
           </View>
           {children}
         </View>
