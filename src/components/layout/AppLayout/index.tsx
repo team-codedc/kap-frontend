@@ -5,18 +5,37 @@ import {styles} from './styles';
 export interface AppLayoutProps {
   children?: React.ReactNode;
   title?: string;
+  direction?: 'row' | 'column';
 }
 
-export const AppLayout: React.FC<AppLayoutProps> = ({title, children}) => {
+export const AppLayout: React.FC<AppLayoutProps> = ({
+  title,
+  direction = 'column',
+  children,
+}) => {
   return (
     <SafeAreaView style={styles.appLayoutContainer}>
-      <View style={styles.appLayoutWrapper}>
-        <TouchableOpacity>
-          <Image source={require('src/assets/privacy-exit-button.png')} />
-          <Text style={styles.title}>{title}</Text>
-        </TouchableOpacity>
-        {children}
-      </View>
+      {direction === 'row' ? (
+        <View style={styles.appLayoutWrapper}>
+          <View>
+            <TouchableOpacity style={styles.directionRowContainer}>
+              <Image source={require('src/assets/privacy-exit-button.png')} />
+              <Text style={styles.rowTitle}>{title}</Text>
+            </TouchableOpacity>
+          </View>
+          {children}
+        </View>
+      ) : (
+        <View style={styles.appLayoutWrapper}>
+          <View>
+            <TouchableOpacity>
+              <Image source={require('src/assets/privacy-exit-button.png')} />
+            </TouchableOpacity>
+            <Text style={styles.title}>{title}</Text>
+          </View>
+          {children}
+        </View>
+      )}
     </SafeAreaView>
   );
 };
