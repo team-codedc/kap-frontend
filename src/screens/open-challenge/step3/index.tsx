@@ -4,32 +4,49 @@ import {useForm, Controller} from 'react-hook-form';
 import {AppLayout, Button as CommonButton, TextArea} from 'src/components';
 import {styles} from './styles';
 import * as ImagePicker from 'react-native-image-picker';
+import {SCREEN} from 'src/constant';
+import {useNavigation} from 'src/hooks';
 
 type OpenChallengeStep3Values = {
   name: string;
   description: string;
   rule: string;
-  certificationFrequency: any;
-  certificationPerDay: string;
-  certificableStartTime: string;
-  certificableFinishTime: string;
-  category: string[];
+  image: {
+    assets: [
+      {
+        fileName: string;
+        fileSize: number;
+        height: number;
+        type: string;
+        uri: string;
+        width: number;
+      },
+    ];
+  };
 };
 
 export const OpenChallengeStep3Screen: React.FC = () => {
-  const {handleSubmit, control} = useForm<OpenChallengeStep3Values>();
+  const {handleSubmit, control, watch} = useForm<OpenChallengeStep3Values>();
+
+  const {image} = watch();
+  const {navigate} = useNavigation();
 
   const onSubmit = (data: OpenChallengeStep3Values) => {
     console.log(data);
+    return navigate(SCREEN.OPEN_CHALLENGE_STEP4);
   };
 
   return (
-    <AppLayout direction="row" title="챌린지 만들기">
-      <Controller
-        control={control}
-        render={({field: {onChange, onBlur, value}}) => (
-          <View style={styles.challengeNameContainer}>
+    <AppLayout
+      route={SCREEN.OPEN_CHALLENGE_STEP1}
+      direction="row"
+      title="챌린지 만들기">
+      <View style={styles.challengeNameContainer}>
+        <Controller
+          control={control}
+          render={({field: {onChange, onBlur}}) => (
             <TouchableOpacity
+              onBlur={onBlur}
               onPress={() =>
                 ImagePicker.launchImageLibrary(
                   {
@@ -39,13 +56,27 @@ export const OpenChallengeStep3Screen: React.FC = () => {
                     maxWidth: 200,
                   },
                   response => {
-                    console.log(response);
+                    onChange(response);
                   },
                 )
               }
               style={styles.galleryContainer}>
-              <Image source={require('src/assets/gallery.png')} />
+              {image?.assets[0]?.uri === undefined ? (
+                <Image source={require('src/assets/gallery.png')} />
+              ) : (
+                <Image
+                  source={{uri: image?.assets[0]?.uri}}
+                  style={styles.challengeProfileImage}
+                />
+              )}
             </TouchableOpacity>
+          )}
+          name="image"
+          rules={{required: true}}
+        />
+        <Controller
+          control={control}
+          render={({field: {onChange, onBlur, value}}) => (
             <TextInput
               style={styles.challengeNameInput}
               onBlur={onBlur}
@@ -53,11 +84,11 @@ export const OpenChallengeStep3Screen: React.FC = () => {
               value={value}
               placeholder="챌린지명 (예: 한강 쓰레기 분리수거)"
             />
-          </View>
-        )}
-        name="name"
-        rules={{required: true}}
-      />
+          )}
+          name="name"
+          rules={{required: true}}
+        />
+      </View>
       <View>
         <Controller
           control={control}
@@ -93,7 +124,11 @@ export const OpenChallengeStep3Screen: React.FC = () => {
         />
       </View>
       <View style={styles.footerButton}>
-        <CommonButton onPress={handleSubmit(onSubmit)} label="다음으로" />
+        <CommonButton
+          onPress={handleSubmit(onSubmit)}
+          // onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP4)}
+          label="다음으로"
+        />
       </View>
     </AppLayout>
   );

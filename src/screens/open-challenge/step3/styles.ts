@@ -19,8 +19,10 @@ export const styles = StyleSheet.create({
     borderStyle: 'dashed',
     borderColor: '#dcdcdc',
     borderRadius: hp(5),
-    padding: wp(15),
     width: wp(55),
+    height: wp(55),
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   challengeNameInput: {
     marginLeft: wp(15),
@@ -31,5 +33,9 @@ export const styles = StyleSheet.create({
   },
   footerButton: {
     marginTop: hp(60),
+  },
+  challengeProfileImage: {
+    width: wp(55),
+    height: wp(55),
   },
 });

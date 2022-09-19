@@ -6,6 +6,8 @@ import {styles} from './styles';
 import * as ImagePicker from 'react-native-image-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {wp} from 'src/utils';
+import {SCREEN} from 'src/constant';
+import {useNavigation} from 'src/hooks';
 
 type OpenChallengeStep4Values = {
   name: string;
@@ -83,7 +85,8 @@ type OpenChallengeStep4Values = {
 // };
 
 export const OpenChallengeStep4Screen: React.FC = () => {
-  const {handleSubmit, control} = useForm<OpenChallengeStep4Values>();
+  const {control} = useForm<OpenChallengeStep4Values>();
+  const {navigate} = useNavigation();
 
   const placeholder = '날짜를 입력해주세요';
 
@@ -98,9 +101,9 @@ export const OpenChallengeStep4Screen: React.FC = () => {
     setDatePickerVisibility(false);
   };
 
-  const onSubmit = (data: OpenChallengeStep4Values) => {
-    console.log(data);
-  };
+  // const onSubmit = (data: OpenChallengeStep4Values) => {
+  //   console.log(data);
+  // };
 
   const handleConfirm = (date: any) => {
     console.warn('dateFormat: ', date.format('yyyy/MM/dd'));
@@ -109,7 +112,10 @@ export const OpenChallengeStep4Screen: React.FC = () => {
   };
 
   return (
-    <AppLayout direction="row" title="챌린지 만들기">
+    <AppLayout
+      route={SCREEN.OPEN_CHALLENGE_STEP3}
+      direction="row"
+      title="챌린지 만들기">
       <View>
         <View style={styles.typeSelectWrapper}>
           <Controller
@@ -202,7 +208,10 @@ export const OpenChallengeStep4Screen: React.FC = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.footerButton}>
-          <Button onPress={handleSubmit(onSubmit)} label="생성하기" />
+          <Button
+            onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP5)}
+            label="생성하기"
+          />
         </View>
       </View>
     </AppLayout>
