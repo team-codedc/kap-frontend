@@ -124,11 +124,7 @@ export const OpenChallengeStep3Screen: React.FC = () => {
         />
       </View>
       <View style={styles.footerButton}>
-        <CommonButton
-          onPress={handleSubmit(onSubmit)}
-          // onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP4)}
-          label="다음으로"
-        />
+        <CommonButton onPress={handleSubmit(onSubmit)} label="다음으로" />
       </View>
     </AppLayout>
   );

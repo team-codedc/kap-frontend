@@ -1,11 +1,14 @@
 import React from 'react';
 import {Image, Linking, Text, TouchableOpacity, View} from 'react-native';
+import {useSetRecoilState} from 'recoil';
 import {AppLayout} from 'src/components';
 import {SCREEN} from 'src/constant';
 import {useNavigation} from 'src/hooks';
+import {glboalCreateChallengeState} from 'src/store';
 import {styles} from './styles';
 
 export const OpenChallengeStep1Screen: React.FC = () => {
+  const setChallenge = useSetRecoilState(glboalCreateChallengeState);
   const {navigate} = useNavigation();
 
   const CHALLENGE_CATEGORY_ITEMS = [
@@ -15,6 +18,11 @@ export const OpenChallengeStep1Screen: React.FC = () => {
       category: 'etc',
     },
   ];
+
+  const handleOnPressStep1Button = () => {
+    setChallenge(prev => ({...prev, category: 'etc'}));
+    return navigate(SCREEN.OPEN_CHALLENGE_STEP3);
+  };
 
   return (
     <AppLayout route={SCREEN.HOME}>
@@ -29,7 +37,7 @@ export const OpenChallengeStep1Screen: React.FC = () => {
         {CHALLENGE_CATEGORY_ITEMS.map(item => {
           return (
             <TouchableOpacity
-              onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP3)}
+              onPress={() => handleOnPressStep1Button}
               style={styles.openChallengeCategoryButton}
               activeOpacity={0.6}>
               <Image source={item.icon} />
