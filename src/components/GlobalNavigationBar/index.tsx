@@ -35,7 +35,7 @@ export const GlobalNavigationBar: React.FC = () => {
         {GLOBAL_NAVIGATION_BAR.map((content, i) => {
           const isFocused = i === page;
           return (
-            <TouchableOpacity onPress={() => navigate(content.id)}>
+            <TouchableOpacity key={i + 1} onPress={() => navigate(content.id)}>
               <View style={styles.globalNavigationBarContentsWrapper}>
                 <Image
                   source={content.icon}
