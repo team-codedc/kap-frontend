@@ -18,9 +18,11 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   overlay: {
-    flex: 1,
-    flexDirection: 'column-reverse',
-    alignItems: 'center',
+    top: hp(-720),
+    marginLeft: wp(20),
+    // flex: 1,
+    // flexDirection: 'column-reverse',
+    // alignItems: 'center',
   },
   bottomButtonCustom: {
     width: SCREEN_WIDTH - wp(50),

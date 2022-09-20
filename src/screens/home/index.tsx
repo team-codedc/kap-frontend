@@ -105,14 +105,13 @@ export const HomeScreen: React.FC = () => {
             </TouchableOpacity>
           </View>
           <TouchableOpacity
+            onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP1)}
             style={styles.homeContentsScreenMyChallengeMakeButton}>
             <Image
               source={require('src/assets/make-challenge.png')}
               style={styles.homeContentsScreenNewChallengeIcon}
             />
-            <Text
-              onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP1)}
-              style={styles.homeContentsScreenNewChallengeText}>
+            <Text style={styles.homeContentsScreenNewChallengeText}>
               새로운 챌린지!
             </Text>
           </TouchableOpacity>

@@ -29,7 +29,6 @@ export const OpenChallengeStep2Screen: React.FC = () => {
         </View>
         <View style={styles.screenContainer} />
         <View style={styles.screenContainer} />
-
         <View style={styles.bottomSheetContainer}>
           <Text style={styles.bottomSheetTitle}>
             보여줄 동네 지정 중이에요 :)
