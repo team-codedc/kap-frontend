@@ -33,9 +33,7 @@ export const HomeScreen: React.FC = () => {
           <TouchableOpacity style={styles.homeScreenOptionButton}>
             <Text style={styles.homeScreenOptionFont}>챌린지</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.homeScreenOptionFont}>모임</Text>
-          </TouchableOpacity>
+          <Text style={styles.homeScreenOptionFontDisable}>모임</Text>
         </View>
       </View>
       <View style={styles.homeContentsScreenWrapper}>
