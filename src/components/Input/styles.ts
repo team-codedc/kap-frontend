@@ -8,11 +8,11 @@ export const styles = StyleSheet.create({
   },
   label: {
     fontSize: fp(15),
-    color: colors.text.gary,
+    color: colors.text.primary,
     fontFamily: SpoqaHanSansNeo.bold,
   },
   input: {
-    borderBottomColor: colors.gray,
+    borderBottomColor: colors.primary,
     borderBottomWidth: wp(1),
     marginTop: hp(-35),
   },

@@ -8,6 +8,7 @@ export const API_SUFFIX = {
   AUTH_GOOGLE: '/auth/google',
   AUTH_REFRESH: '/auth/refresh',
   USER_PROFILE: '/users/profile',
+  CHALLENGE_CREATE: '/challenges',
 };
 
 export const instance = axios.create({
