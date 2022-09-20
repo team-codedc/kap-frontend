@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {GlobalNavigationBar} from 'src/components';
@@ -13,7 +13,9 @@ export interface DefaultLayoutProps {
 export const DefaultLayout: React.FC<DefaultLayoutProps> = ({children}) => {
   return (
     <SafeAreaView style={styles.defaultLayoutContainer}>
-      <View style={styles.defaultLayoutWrapper}>{children}</View>
+      <ScrollView>
+        <View style={styles.defaultLayoutWrapper}>{children}</View>
+      </ScrollView>
       <GlobalNavigationBar />
     </SafeAreaView>
   );
