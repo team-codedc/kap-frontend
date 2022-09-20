@@ -26,7 +26,7 @@ export const MapView: React.FC<MapViewProps> = ({
   children,
   showHeading,
   style,
-  styleURL = 'mapbox://styles/hanseo0507/cl71ocl8q000015td0zgfengv',
+  styleURL = 'mapbox://styles/cmg8431/ckxmyp0dz6sss15nx1c00e6kx',
   updateUserLocationInterval = 1000,
 }) => {
   const [location, setLocation] = useState<Location>({
@@ -114,7 +114,7 @@ export const MapView: React.FC<MapViewProps> = ({
               showHeading && location.heading !== null
                 ? require('src/assets/mapbox/location-with-heading.png')
                 : require('src/assets/mapbox/location.png'),
-            iconSize: 0.8,
+            iconSize: 2,
             iconRotate: location.heading !== null ? location.heading : 0,
             iconRotationAlignment: 'map',
             iconAllowOverlap: true,
