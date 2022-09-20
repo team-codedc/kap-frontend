@@ -6,14 +6,13 @@ import {styles} from './styles';
 import * as ImagePicker from 'react-native-image-picker';
 import {SCREEN} from 'src/constant';
 import {useNavigation} from 'src/hooks';
-import {useSetRecoilState} from 'recoil';
-import {glboalCreateChallengeState} from 'src/store';
+import {API_SUFFIX, instance} from 'src/api';
 
 type OpenChallengeStep3Values = {
   name: string;
   description: string;
   rule: string;
-  image: {
+  file: {
     assets: [
       {
         fileName: string;
@@ -28,14 +27,18 @@ type OpenChallengeStep3Values = {
 };
 
 export const OpenChallengeStep3Screen: React.FC = () => {
-  const setChallenge = useSetRecoilState(glboalCreateChallengeState);
   const {handleSubmit, control, watch} = useForm<OpenChallengeStep3Values>();
 
-  const {image} = watch();
+  const {file} = watch();
   const {navigate} = useNavigation();
 
-  const onSubmit = (data: OpenChallengeStep3Values) => {
-    setChallenge(prev => ({...prev, ...data}));
+  const onSubmit = async (request: OpenChallengeStep3Values) => {
+    const {data} = await instance.post(API_SUFFIX.CHALLENGE_CREATE, {
+      ...request,
+      category: 'etc',
+    });
+    console.log(data);
+
     return navigate(SCREEN.OPEN_CHALLENGE_STEP4);
   };
 
@@ -64,17 +67,17 @@ export const OpenChallengeStep3Screen: React.FC = () => {
                 )
               }
               style={styles.galleryContainer}>
-              {image?.assets[0]?.uri === undefined ? (
+              {file?.assets[0]?.uri === undefined ? (
                 <Image source={require('src/assets/gallery.png')} />
               ) : (
                 <Image
-                  source={{uri: image?.assets[0]?.uri}}
+                  source={{uri: file?.assets[0]?.uri}}
                   style={styles.challengeProfileImage}
                 />
               )}
             </TouchableOpacity>
           )}
-          name="image"
+          name="file"
           rules={{required: true}}
         />
         <Controller

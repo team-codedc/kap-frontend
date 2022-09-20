@@ -9,24 +9,23 @@ import {SCREEN, StackParamList} from './constant';
 import {useProfile} from './hooks';
 import {Toast} from './components';
 import {
-  // HomeScreen,
-  // MapScreen,
-  // OnBoardingScreen,
+  HomeScreen,
+  MapScreen,
+  OnBoardingScreen,
   OpenChallengeStep1Screen,
   OpenChallengeStep2Screen,
-  // OpenChallengeStep2Screen,
   OpenChallengeStep3Screen,
   OpenChallengeStep4Screen,
 } from './screens';
-// import {useRecoilState} from 'recoil';
-// import {globalAccessTokenState} from './store';
+import {useRecoilState} from 'recoil';
+import {globalAccessTokenState} from './store';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const Service: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const {isFetched} = useProfile();
-  // const [globalAccessToken] = useRecoilState(globalAccessTokenState);
+  const [globalAccessToken] = useRecoilState(globalAccessTokenState);
 
   useEffect(() => {
     if (isFetched) {
@@ -43,26 +42,6 @@ export const Service: React.FC = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={SCREEN.OPEN_CHALLENGE_STEP1}
-          screenOptions={{headerShown: false}}>
-          <Stack.Screen
-            name={SCREEN.OPEN_CHALLENGE_STEP1}
-            component={OpenChallengeStep1Screen}
-          />
-          <Stack.Screen
-            name={SCREEN.OPEN_CHALLENGE_STEP2}
-            component={OpenChallengeStep2Screen}
-          />
-          <Stack.Screen
-            name={SCREEN.OPEN_CHALLENGE_STEP3}
-            component={OpenChallengeStep3Screen}
-          />
-          <Stack.Screen
-            name={SCREEN.OPEN_CHALLENGE_STEP4}
-            component={OpenChallengeStep4Screen}
-          />
-        </Stack.Navigator>
-        {/* <Stack.Navigator
           initialRouteName={globalAccessToken ? SCREEN.MAP : SCREEN.ON_BOARDING}
           screenOptions={{headerShown: false}}>
           {globalAccessToken ? (
@@ -85,10 +64,6 @@ export const Service: React.FC = () => {
                 name={SCREEN.OPEN_CHALLENGE_STEP4}
                 component={OpenChallengeStep4Screen}
               />
-              <Stack.Screen
-                name={SCREEN.OPEN_CHALLENGE_STEP5}
-                component={OpenChallengeStep5Screen}
-              />
             </>
           ) : (
             <>
@@ -98,7 +73,7 @@ export const Service: React.FC = () => {
               />
             </>
           )}
-        </Stack.Navigator> */}
+        </Stack.Navigator>
         <Toast />
       </NavigationContainer>
     </SafeAreaProvider>
