@@ -1,5 +1,5 @@
-import {Dimensions, StyleSheet} from 'react-native';
-import {wp} from 'src/utils';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
+import {hp, wp} from 'src/utils';
 
 const SCREEN_WIDTH = Dimensions.get('screen').width;
 
@@ -7,15 +7,12 @@ export const styles = StyleSheet.create({
   safeAreaView: {
     zIndex: 99,
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
     bottom: 0,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingBottom: Platform.OS === 'ios' ? hp(0) : hp(20),
   },
   screenContainer: {
     flex: 1,
+    position: 'relative',
   },
   mapbox: {
     flex: 1,
