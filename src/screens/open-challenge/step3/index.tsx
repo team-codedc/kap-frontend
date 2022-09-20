@@ -6,7 +6,7 @@ import {styles} from './styles';
 import * as ImagePicker from 'react-native-image-picker';
 import {SCREEN} from 'src/constant';
 import {useNavigation} from 'src/hooks';
-import {API_SUFFIX, instance} from 'src/api';
+// import {API_SUFFIX, instance} from 'src/api';
 
 type OpenChallengeStep3Values = {
   name: string;
@@ -33,12 +33,12 @@ export const OpenChallengeStep3Screen: React.FC = () => {
   const {navigate} = useNavigation();
 
   const onSubmit = async (request: OpenChallengeStep3Values) => {
-    const {data} = await instance.post(API_SUFFIX.CHALLENGE_CREATE, {
-      ...request,
-      category: 'etc',
-    });
-    console.log(data);
-
+    // const {data} = await instance.post(API_SUFFIX.CHALLENGE_CREATE, {
+    //   ...request,
+    //   category: 'etc',
+    // });
+    // console.log(data);
+    console.log(request);
     return navigate(SCREEN.OPEN_CHALLENGE_STEP4);
   };
 

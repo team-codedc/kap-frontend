@@ -2,11 +2,14 @@ import React from 'react';
 import {Image, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 
 import {DefaultLayout} from 'src/components/layout';
+import {SCREEN} from 'src/constant';
 import {HOME_CATEGORY} from 'src/constant/HomeCategory';
+import {useNavigation} from 'src/hooks';
 
 import {styles} from './styles';
 
 export const HomeScreen: React.FC = () => {
+  const {navigate} = useNavigation();
   return (
     <DefaultLayout>
       <View style={styles.homeScreenWrapper}>
@@ -107,7 +110,9 @@ export const HomeScreen: React.FC = () => {
               source={require('src/assets/make-challenge.png')}
               style={styles.homeContentsScreenNewChallengeIcon}
             />
-            <Text style={styles.homeContentsScreenNewChallengeText}>
+            <Text
+              onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP1)}
+              style={styles.homeContentsScreenNewChallengeText}>
               새로운 챌린지!
             </Text>
           </TouchableOpacity>
