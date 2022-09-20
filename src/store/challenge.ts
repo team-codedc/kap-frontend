@@ -17,9 +17,6 @@ export const glboalCreateChallengeState = atom({
         },
       ],
     },
-    startDate: '',
-    finishDate: '',
     category: '',
-    tag: [''],
   },
 });

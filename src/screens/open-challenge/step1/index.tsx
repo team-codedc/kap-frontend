@@ -21,7 +21,7 @@ export const OpenChallengeStep1Screen: React.FC = () => {
 
   const handleOnPressStep1Button = () => {
     setChallenge(prev => ({...prev, category: 'etc'}));
-    return navigate(SCREEN.OPEN_CHALLENGE_STEP3);
+    return navigate(SCREEN.OPEN_CHALLENGE_STEP2);
   };
 
   return (
@@ -34,10 +34,11 @@ export const OpenChallengeStep1Screen: React.FC = () => {
         <Text style={styles.openChallengeRegularText}>미션을 만들어봐요!</Text>
       </View>
       <View style={styles.openChallengeContainer}>
-        {CHALLENGE_CATEGORY_ITEMS.map(item => {
+        {CHALLENGE_CATEGORY_ITEMS.map((item, key) => {
           return (
             <TouchableOpacity
-              onPress={() => handleOnPressStep1Button}
+              key={key + 1}
+              onPress={handleOnPressStep1Button}
               style={styles.openChallengeCategoryButton}
               activeOpacity={0.6}>
               <Image source={item.icon} />

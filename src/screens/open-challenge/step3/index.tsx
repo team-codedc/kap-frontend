@@ -6,6 +6,8 @@ import {styles} from './styles';
 import * as ImagePicker from 'react-native-image-picker';
 import {SCREEN} from 'src/constant';
 import {useNavigation} from 'src/hooks';
+import {useSetRecoilState} from 'recoil';
+import {glboalCreateChallengeState} from 'src/store';
 
 type OpenChallengeStep3Values = {
   name: string;
@@ -26,13 +28,14 @@ type OpenChallengeStep3Values = {
 };
 
 export const OpenChallengeStep3Screen: React.FC = () => {
+  const setChallenge = useSetRecoilState(glboalCreateChallengeState);
   const {handleSubmit, control, watch} = useForm<OpenChallengeStep3Values>();
 
   const {image} = watch();
   const {navigate} = useNavigation();
 
   const onSubmit = (data: OpenChallengeStep3Values) => {
-    console.log(data);
+    setChallenge(prev => ({...prev, ...data}));
     return navigate(SCREEN.OPEN_CHALLENGE_STEP4);
   };
 

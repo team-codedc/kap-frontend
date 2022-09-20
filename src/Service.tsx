@@ -13,10 +13,10 @@ import {
   // MapScreen,
   // OnBoardingScreen,
   OpenChallengeStep1Screen,
+  OpenChallengeStep2Screen,
   // OpenChallengeStep2Screen,
   OpenChallengeStep3Screen,
   OpenChallengeStep4Screen,
-  OpenChallengeStep5Screen,
 } from './screens';
 // import {useRecoilState} from 'recoil';
 // import {globalAccessTokenState} from './store';
@@ -50,16 +50,16 @@ export const Service: React.FC = () => {
             component={OpenChallengeStep1Screen}
           />
           <Stack.Screen
+            name={SCREEN.OPEN_CHALLENGE_STEP2}
+            component={OpenChallengeStep2Screen}
+          />
+          <Stack.Screen
             name={SCREEN.OPEN_CHALLENGE_STEP3}
             component={OpenChallengeStep3Screen}
           />
           <Stack.Screen
             name={SCREEN.OPEN_CHALLENGE_STEP4}
             component={OpenChallengeStep4Screen}
-          />
-          <Stack.Screen
-            name={SCREEN.OPEN_CHALLENGE_STEP5}
-            component={OpenChallengeStep5Screen}
           />
         </Stack.Navigator>
         {/* <Stack.Navigator

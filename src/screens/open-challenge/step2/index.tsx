@@ -1,16 +1,16 @@
-import React from 'react';
+import MapboxGL from '@rnmapbox/maps';
+import React, {useRef} from 'react';
 
-import {TextInput, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Button} from 'src/components';
+import {MapView} from 'src/components';
+import {styles} from './styles';
 
 export const OpenChallengeStep2Screen: React.FC = () => {
+  const cameraRef = useRef<MapboxGL.Camera>(null);
+
   return (
     <SafeAreaView>
-      <View>
-        <TextInput multiline={true} numberOfLines={10} />
-        <Button label="다음으로" />
-      </View>
+      <MapView cameraRef={cameraRef} style={styles.mapbox} showHeading />
     </SafeAreaView>
   );
 };
