@@ -39,7 +39,7 @@ export const GlobalNavigationBar: React.FC = () => {
               <View style={styles.globalNavigationBarContentsWrapper}>
                 <Image
                   source={content.icon}
-                  style={[styles.globalNavigationBarIcon]}
+                  style={styles.globalNavigationBarIcon}
                 />
                 <Text
                   style={[
