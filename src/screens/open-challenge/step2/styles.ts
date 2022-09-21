@@ -1,5 +1,6 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {colors, SpoqaHanSansNeo} from 'src/styles';
+
 import {fp, hp, wp} from 'src/utils';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -20,6 +21,7 @@ export const styles = StyleSheet.create({
     borderRadius: hp(50),
     fontFamily: SpoqaHanSansNeo.bold,
   },
+
   screenContainer: {
     flex: 1,
   },

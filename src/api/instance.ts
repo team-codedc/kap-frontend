@@ -9,6 +9,7 @@ export const API_SUFFIX = {
   AUTH_REFRESH: '/auth/refresh',
   USER_PROFILE: '/users/profile',
   CHALLENGE_CREATE: '/challenges',
+  MY_CHALLENGE: '/challenges',
 };
 
 export const instance = axios.create({

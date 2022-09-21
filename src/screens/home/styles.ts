@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {SpoqaHanSansNeo} from 'src/styles';
+import {colors, SpoqaHanSansNeo} from 'src/styles';
 import {fp, hp, wp} from 'src/utils';
 
 export const styles = StyleSheet.create({
@@ -199,6 +199,31 @@ export const styles = StyleSheet.create({
     paddingHorizontal: hp(23),
     paddingVertical: wp(20),
     borderRadius: hp(5),
+  },
+  homeContentsScreenMyChallengeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    marginBottom: hp(10),
+    paddingHorizontal: hp(23),
+    paddingVertical: hp(13),
+    borderRadius: hp(5),
+  },
+  homeContentsScreenMyChallenge: {
+    color: colors.text.primary,
+    fontSize: fp(15),
+    textAlignVertical: 'center',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    letterSpacing: wp(-0.8),
+    fontFamily: SpoqaHanSansNeo.medium,
+  },
+  homeContentsScreenMyChallengeIcon: {
+    width: wp(13),
+    height: hp(13),
+    marginLeft: wp(8),
+    marginRight: wp(20),
   },
   homeContentsScreenNewChallengeIcon: {
     width: 13,

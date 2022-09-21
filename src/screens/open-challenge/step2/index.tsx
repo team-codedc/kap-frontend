@@ -16,6 +16,13 @@ export const OpenChallengeStep2Screen: React.FC = () => {
   const cameraRef = useRef<MapboxGL.Camera>(null);
   const {navigate} = useNavigation();
 
+  // const panY = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
+
+  // const translateY = panY.interpolate({
+  //   inputRange: [-1, 0, 1],
+  //   outputRange: [0, 0, 1],
+  // });
+
   return (
     <View style={styles.screenContainer}>
       <SafeAreaView style={styles.safeAreaView}>
@@ -25,6 +32,7 @@ export const OpenChallengeStep2Screen: React.FC = () => {
             onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP1)}>
             <Image source={require('src/assets/privacy-exit-button.png')} />
           </TouchableOpacity>
+          {/* <Text style={[styles.toastContainer, {transform: [{30}]}]}> */}
           <Text style={styles.toastContainer}>범위 지정 중 😎</Text>
         </View>
         <View style={styles.screenContainer} />

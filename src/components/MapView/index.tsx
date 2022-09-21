@@ -26,7 +26,7 @@ export const MapView: React.FC<MapViewProps> = ({
   children,
   showHeading,
   style,
-  styleURL = 'mapbox://styles/cmg8431/ckxmyp0dz6sss15nx1c00e6kx',
+  styleURL = 'mapbox://styles/rlaeodnr1011/cl8af66c1000t15obdpwh5mzo',
   updateUserLocationInterval = 1000,
 }) => {
   const [location, setLocation] = useState<Location>({
@@ -101,7 +101,7 @@ export const MapView: React.FC<MapViewProps> = ({
       attributionEnabled={false}
       scaleBarEnabled={false}
       localizeLabels={true}
-
+      zoomEnabled={true}
       // onTouchStart={() => setIsTouching(true)}
       // onTouchEnd={() => setIsTouching(false)}
     >
