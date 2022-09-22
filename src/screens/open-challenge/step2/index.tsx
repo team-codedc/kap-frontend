@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import MapboxGL from '@rnmapbox/maps';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -9,10 +9,26 @@ import {SCREEN} from 'src/constant';
 import {useNavigation} from 'src/hooks';
 import {styles} from './styles';
 import {hp, wp} from 'src/utils';
+import {getLocation} from 'src/utils/getLocation';
 
 export const OpenChallengeStep2Screen: React.FC = () => {
   const cameraRef = useRef<MapboxGL.Camera>(null);
   const {navigate} = useNavigation();
+  const [range, setRange] = useState(2);
+  const [coordinates, setCoordinates] = useState<[number, number]>([0, 0]);
+  const pointAnnontation = useRef<MapboxGL.PointAnnotation>(null);
+
+  const handleOnChangeSliderValue = (values: number[]) => {
+    setRange(values[0] + 1);
+    pointAnnontation.current?.refresh();
+  };
+
+  useEffect(() => {
+    (async () => {
+      const {coords} = await getLocation();
+      setCoordinates([coords.longitude, coords.latitude]);
+    })();
+  }, []);
 
   return (
     <View style={styles.screenContainer}>
@@ -71,6 +87,7 @@ export const OpenChallengeStep2Screen: React.FC = () => {
             }}
             sliderLength={310}
             isMarkersSeparated={true}
+            onValuesChange={handleOnChangeSliderValue}
           />
           <Button
             onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP3)}
@@ -79,7 +96,28 @@ export const OpenChallengeStep2Screen: React.FC = () => {
           />
         </View>
       </SafeAreaView>
-      <MapView cameraRef={cameraRef} style={styles.mapbox} showHeading />
+
+      <MapView cameraRef={cameraRef} style={styles.mapbox} showHeading>
+        {coordinates[0] !== 0 && coordinates[1] !== 0 && (
+          <MapboxGL.PointAnnotation
+            ref={pointAnnontation}
+            id="point_annotation"
+            coordinate={coordinates}
+            anchor={{x: 0, y: 0}}>
+            <View
+              style={{
+                width: wp(25 * range),
+                height: hp(25 * range),
+                backgroundColor: 'rgba(185, 255, 234, 0.46)',
+                borderWidth: 2,
+                borderColor: '#4CFCC7',
+                borderStyle: 'dashed',
+                borderRadius: wp((25 * range) / 2),
+              }}
+            />
+          </MapboxGL.PointAnnotation>
+        )}
+      </MapView>
     </View>
   );
 };
