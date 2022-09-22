@@ -11,6 +11,7 @@ import {Toast} from './components';
 import {
   HomeScreen,
   MapScreen,
+  MyChallenge,
   OnBoardingScreen,
   OpenChallengeStep1Screen,
   OpenChallengeStep2Screen,
@@ -50,6 +51,10 @@ export const Service: React.FC = () => {
             <>
               <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
               <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
+              <Stack.Screen
+                name={SCREEN.MY_CHALLENGE}
+                component={MyChallenge}
+              />
               <Stack.Screen
                 name={SCREEN.OPEN_CHALLENGE_STEP1}
                 component={OpenChallengeStep1Screen}

@@ -10,6 +10,7 @@ export const SCREEN = {
   COMMUNITY: 'COMMUNITY',
   MARKET: 'MARKET',
   MY_INFO: 'MY_INFO',
+  MY_CHALLENGE: 'MY_CHALLENGE',
 } as const;
 
 export type StackParamList = {

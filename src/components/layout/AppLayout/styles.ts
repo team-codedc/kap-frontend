@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     marginLeft: wp(10),
     color: '#000000',
     fontSize: fp(20),
-    fontFamily: SpoqaHanSansNeo.regular,
+    fontFamily: SpoqaHanSansNeo.bold,
     textAlignVertical: 'center',
   },
   appLayoutContainer: {

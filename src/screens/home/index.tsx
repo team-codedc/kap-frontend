@@ -15,7 +15,6 @@ export const HomeScreen: React.FC = () => {
   const {data: user} = useProfile();
   const {data: challenge} = useMyChallenge();
 
-  // console.log(challenge);
   return (
     <DefaultLayout>
       <View style={styles.homeScreenWrapper}>
@@ -105,7 +104,9 @@ export const HomeScreen: React.FC = () => {
               나의 챌린지
             </Text>
             <TouchableOpacity>
-              <Text style={styles.homeContentsScreenMyChallengeViewMore}>
+              <Text
+                onPress={() => navigate(SCREEN.MY_CHALLENGE)}
+                style={styles.homeContentsScreenMyChallengeViewMore}>
                 더보기
               </Text>
             </TouchableOpacity>
