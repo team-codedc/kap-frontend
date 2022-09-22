@@ -49,9 +49,9 @@ export const Service: React.FC = () => {
             globalAccessToken ? SCREEN.HOME : SCREEN.ON_BOARDING
           }
           screenOptions={{headerShown: false}}>
+          <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
           {globalAccessToken ? (
             <>
-              <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
               <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
               <Stack.Screen
                 name={SCREEN.MY_CHALLENGE}

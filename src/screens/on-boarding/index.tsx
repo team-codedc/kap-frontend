@@ -29,7 +29,7 @@ export const OnBoardingScreen: React.FC = () => {
     title: '로그인 방법을\n선택해주세요 😎',
   });
   const {navigate} = useNavigation();
-  const {login, profile} = useLogin();
+  const {login, profile, isLoading} = useLogin();
 
   const flatListRenderItem = (item: typeof ON_BOARDING_ITEMS[number]) => {
     return (
@@ -70,10 +70,10 @@ export const OnBoardingScreen: React.FC = () => {
   };
 
   useEffect(() => {
-    if (profile) {
+    if (profile && !isLoading) {
       navigate(SCREEN.HOME);
     }
-  }, [profile]);
+  }, [profile, isLoading]);
 
   return (
     <SafeAreaView style={globalStyles.safeAreaView}>

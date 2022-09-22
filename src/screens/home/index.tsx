@@ -1,20 +1,38 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useQueryClient} from '@tanstack/react-query';
+import React, {useEffect} from 'react';
 import {Image, Text, View, TouchableOpacity, ScrollView} from 'react-native';
+import {useSetRecoilState} from 'recoil';
 
 import {DefaultLayout} from 'src/components/layout';
 import {SCREEN} from 'src/constant';
 import {HOME_CATEGORY} from 'src/constant/HomeCategory';
 import {useNavigation, useProfile} from 'src/hooks';
 import {useChallenge, useMyChallenge} from 'src/hooks/query/useChallenge';
+import {globalAccessTokenState} from 'src/store';
 import {wp} from 'src/utils';
 
 import {styles} from './styles';
 
 export const HomeScreen: React.FC = () => {
   const {navigate} = useNavigation();
-  const {data: user} = useProfile();
+  const {data: user, isError} = useProfile();
   const {data: challenge} = useMyChallenge();
   const {data: joinChallenge} = useChallenge();
+  const queryClient = useQueryClient();
+  const setGlobalAccessToken = useSetRecoilState(globalAccessTokenState);
+
+  const clearRefreshToken = async () => {
+    queryClient.getQueryCache().clear();
+    setGlobalAccessToken('');
+    await AsyncStorage.setItem('@token', '');
+  };
+
+  useEffect(() => {
+    if (isError) {
+      navigate(SCREEN.ON_BOARDING);
+    }
+  }, [user, isError]);
 
   return (
     <DefaultLayout>
@@ -27,7 +45,9 @@ export const HomeScreen: React.FC = () => {
             />
             <Text style={styles.homeScreenHeaderRegion}>서울특별시 마포구</Text>
           </View>
-          <View style={styles.homeScreenHeaderProfileWrapper}>
+          <View
+            style={styles.homeScreenHeaderProfileWrapper}
+            onTouchEnd={clearRefreshToken}>
             <Image
               source={require('../../assets/kakao.png')}
               style={styles.homeScreenHeaderProfileIcon}
