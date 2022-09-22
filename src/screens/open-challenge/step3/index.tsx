@@ -7,7 +7,8 @@ import * as ImagePicker from 'react-native-image-picker';
 import {SCREEN} from 'src/constant';
 import {useNavigation} from 'src/hooks';
 import {API_SUFFIX, instance} from 'src/api';
-// import {API_SUFFIX, instance} from 'src/api';
+import {useRecoilValue} from 'recoil';
+import {globalUserLcoation} from 'src/store';
 
 type OpenChallengeStep3Values = {
   name: string;
@@ -29,19 +30,21 @@ type OpenChallengeStep3Values = {
 
 export const OpenChallengeStep3Screen: React.FC = () => {
   const {handleSubmit, control, watch} = useForm<OpenChallengeStep3Values>();
-
+  const location = useRecoilValue(globalUserLcoation);
   const {file} = watch();
   const {navigate} = useNavigation();
 
   const onSubmit = async (request: OpenChallengeStep3Values) => {
     try {
-      const {data} = await instance.post(API_SUFFIX.CHALLENGE_CREATE, {
+      const {} = await instance.post(API_SUFFIX.CHALLENGE_CREATE, {
         name: request.name,
         rule: request.rule,
         description: request.description,
         category: 'etc',
+        lat: location.lat,
+        lng: location.lng,
       });
-      console.log(data);
+
       return navigate(SCREEN.OPEN_CHALLENGE_STEP4);
     } catch (err) {
       console.log(err);

@@ -2,6 +2,8 @@ import MapboxGL from '@rnmapbox/maps';
 import {CameraRef} from '@rnmapbox/maps/javascript/components/Camera';
 import React, {useEffect, useState} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
+import {useSetRecoilState} from 'recoil';
+import {globalUserLcoation} from 'src/store';
 
 import {getLocation} from 'src/utils/getLocation';
 
@@ -29,6 +31,7 @@ export const MapView: React.FC<MapViewProps> = ({
   styleURL = 'mapbox://styles/rlaeodnr1011/cl8af66c1000t15obdpwh5mzo',
   updateUserLocationInterval = 1000,
 }) => {
+  const setGlobalLocation = useSetRecoilState(globalUserLcoation);
   const [location, setLocation] = useState<Location>({
     lat: 0,
     lng: 0,
@@ -52,6 +55,7 @@ export const MapView: React.FC<MapViewProps> = ({
     (async () => {
       const locationData = await getFormattedLocation();
       setCameraCenterCoords([locationData.lng, locationData.lat]);
+      setGlobalLocation({lng: locationData.lng, lat: locationData.lat});
     })();
   }, []);
 
