@@ -11,6 +11,7 @@ export const SCREEN = {
   MARKET: 'MARKET',
   MY_INFO: 'MY_INFO',
   CHALLENGE_DETAIL: 'CHALLENGE_DETAIL',
+  VIEW_MORE_CHALLENGE: 'VIEW_MORE_CHALLENGE',
 } as const;
 
 export type StackParamList = {
