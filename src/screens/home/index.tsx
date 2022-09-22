@@ -5,7 +5,7 @@ import {DefaultLayout} from 'src/components/layout';
 import {SCREEN} from 'src/constant';
 import {HOME_CATEGORY} from 'src/constant/HomeCategory';
 import {useNavigation, useProfile} from 'src/hooks';
-import {useMyChallenge} from 'src/hooks/query/useChallenge';
+import {useChallenge, useMyChallenge} from 'src/hooks/query/useChallenge';
 import {wp} from 'src/utils';
 
 import {styles} from './styles';
@@ -14,6 +14,7 @@ export const HomeScreen: React.FC = () => {
   const {navigate} = useNavigation();
   const {data: user} = useProfile();
   const {data: challenge} = useMyChallenge();
+  const {data: joinChallenge} = useChallenge();
 
   return (
     <DefaultLayout>
@@ -66,31 +67,25 @@ export const HomeScreen: React.FC = () => {
           </Text>
         </View>
         <View style={styles.homeContentsScreenContentContainer}>
-          {Array.from(Array(4).keys()).map((_, key) => {
-            return (
+          {joinChallenge?.map((v, i) => {
+            return i < 4 ? (
               <TouchableOpacity
-                key={key + 1}
+                key={i + 1}
                 style={styles.homeContentsScreenContentWrapper}>
                 <Image source={require('src/assets/challenge-image.png')} />
                 <Text style={styles.homeContentsScreenContentDescription}>
-                  한강 청소하기
+                  {v.name}
                 </Text>
                 <Text style={styles.homeContentsScreenContentDateText}>
-                  오늘 시작한 챌린지에요 :)
+                  {v.description}
                 </Text>
                 <View style={styles.homeContentsScreenContentTagWrapper}>
                   <Text style={styles.homeContentsScreenContentTag}>
-                    오늘부터
-                  </Text>
-                  <Text style={styles.homeContentsScreenContentTag}>
-                    오늘부터
-                  </Text>
-                  <Text style={styles.homeContentsScreenContentTag}>
-                    오늘부터
+                    {v.category}
                   </Text>
                 </View>
               </TouchableOpacity>
-            );
+            ) : null;
           })}
           <TouchableOpacity style={styles.homeContentsScreenChallengeButton}>
             <Text style={styles.homeContentsScreenChallengeButtonText}>
