@@ -15,7 +15,6 @@ export const ChallengeDetailScreen: React.FC = () => {
   const {data: challenge}: any = useDetailChallenge();
 
   const onSubmit = () => {
-    console.log(challenge.id);
     getJoinChallenge(challenge.id)
       .then(() => {
         navigate(SCREEN.HOME);
