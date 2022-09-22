@@ -2,10 +2,12 @@ import MapboxGL from '@rnmapbox/maps';
 import React, {useRef} from 'react';
 import {Image, TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useSetRecoilState} from 'recoil';
 import {MapView} from 'src/components';
 import {SCREEN} from 'src/constant';
 import {useNavigation} from 'src/hooks';
 import {useAllChallenge} from 'src/hooks/query/useChallenge';
+import {globalChallengeDetailIdState} from 'src/store';
 import {styles} from './styles';
 
 export const MapScreen: React.FC = () => {
@@ -13,6 +15,12 @@ export const MapScreen: React.FC = () => {
   const {width} = useWindowDimensions();
   const {navigate} = useNavigation();
   const {data: challenge} = useAllChallenge();
+  const setDetailChallengeId = useSetRecoilState(globalChallengeDetailIdState);
+
+  const onTest = (event: any) => {
+    setDetailChallengeId(event);
+    return navigate(SCREEN.CHALLENGE_DETAIL);
+  };
 
   return (
     <View style={styles.screenContainer}>
@@ -37,7 +45,8 @@ export const MapScreen: React.FC = () => {
                   ...v,
                 },
               })),
-            }}>
+            }}
+            onPress={event => onTest(event)}>
             <MapboxGL.SymbolLayer
               id="pointCount_Active"
               // eslint-disable-next-line react-native/no-inline-styles

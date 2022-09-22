@@ -32,6 +32,15 @@ export const getMyChallenge = async (
   return data;
 };
 
+export const getDetailChallenge = async (
+  id: string,
+): Promise<APIResponse<MyChallengeResponse[]>> => {
+  const {data} = await instance.get<APIResponse<MyChallengeResponse[]>>(
+    `${API_SUFFIX.DETAIL_CHALLENGE}/${id}`,
+  );
+  return data;
+};
+
 export const getAllChallenge = async (): Promise<
   APIResponse<MyChallengeResponse[]>
 > => {

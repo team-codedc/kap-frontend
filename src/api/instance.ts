@@ -10,6 +10,8 @@ export const API_SUFFIX = {
   USER_PROFILE: '/users/profile',
   CHALLENGE_CREATE: '/challenges',
   MY_CHALLENGE: '/challenges',
+  DETAIL_CHALLENGE: '/challenges/detail',
+  JOIN_CHALLENGE: 'challenges/join',
 };
 
 export const instance = axios.create({
