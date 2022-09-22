@@ -1,7 +1,7 @@
 import MapboxGL from '@rnmapbox/maps';
 import {CameraRef} from '@rnmapbox/maps/javascript/components/Camera';
 import React, {useEffect, useState} from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
+import {Platform, StyleProp, ViewStyle} from 'react-native';
 import {useSetRecoilState} from 'recoil';
 import {globalUserLcoation} from 'src/store';
 
@@ -118,7 +118,7 @@ export const MapView: React.FC<MapViewProps> = ({
               showHeading && location.heading !== null
                 ? require('src/assets/mapbox/location-with-heading.png')
                 : require('src/assets/mapbox/location.png'),
-            iconSize: 2,
+            iconSize: Platform.OS == 'ios' ? 0.93 : 2,
             iconRotate: location.heading !== null ? location.heading : 0,
             iconRotationAlignment: 'map',
             iconAllowOverlap: true,
