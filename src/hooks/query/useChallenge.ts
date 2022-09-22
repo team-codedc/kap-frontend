@@ -7,21 +7,6 @@ import {CustomException} from 'src/exceptions';
 import {AsyncStorage} from 'react-native';
 import {getMyChallenge} from 'src/api/challenge';
 
-// export const useMyChallenge = (): UseMutationResult<
-//   APIResponse<MyChallengeResponse>,
-//   AxiosError<APIErrorResponse>,
-//   MyChallengeValue
-// > =>
-//   useMutation('useMyChallenge', getMyChallenge, {
-//     onSuccess: data => {
-//       console.log(data);
-//     },
-//     onError: data => {
-//       console.log(data);
-//     },
-//     retry: 0,
-//   });
-
 export const useMyChallenge = () => {
   const [globalAccessToken, setGlobalAccessToken] = useRecoilState(
     globalAccessTokenState,
