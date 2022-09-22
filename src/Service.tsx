@@ -9,6 +9,7 @@ import {SCREEN, StackParamList} from './constant';
 import {useProfile} from './hooks';
 import {Toast} from './components';
 import {
+  ChallengeDetailScreen,
   HomeScreen,
   MapScreen,
   MyChallenge,
@@ -70,6 +71,10 @@ export const Service: React.FC = () => {
               <Stack.Screen
                 name={SCREEN.OPEN_CHALLENGE_STEP4}
                 component={OpenChallengeStep4Screen}
+              />
+              <Stack.Screen
+                name={SCREEN.CHALLENGE_DETAIL}
+                component={ChallengeDetailScreen}
               />
             </>
           ) : (
