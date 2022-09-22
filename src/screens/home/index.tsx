@@ -72,7 +72,10 @@ export const HomeScreen: React.FC = () => {
               <TouchableOpacity
                 key={i + 1}
                 style={styles.homeContentsScreenContentWrapper}>
-                <Image source={require('src/assets/challenge-image.png')} />
+                <Image
+                  style={styles.imageStyle}
+                  source={require('src/assets/challenge-image.png')}
+                />
                 <Text style={styles.homeContentsScreenContentDescription}>
                   {v.name}
                 </Text>
@@ -87,7 +90,9 @@ export const HomeScreen: React.FC = () => {
               </TouchableOpacity>
             ) : null;
           })}
-          <TouchableOpacity style={styles.homeContentsScreenChallengeButton}>
+          <TouchableOpacity
+            onPress={() => navigate(SCREEN.VIEW_MORE_CHALLENGE)}
+            style={styles.homeContentsScreenChallengeButton}>
             <Text style={styles.homeContentsScreenChallengeButtonText}>
               챌린지 더보기
             </Text>

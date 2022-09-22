@@ -18,6 +18,7 @@ import {
   OpenChallengeStep2Screen,
   OpenChallengeStep3Screen,
   OpenChallengeStep4Screen,
+  ViewMoreChallengeScreen,
 } from './screens';
 import {useRecoilState} from 'recoil';
 import {globalAccessTokenState} from './store';
@@ -75,6 +76,10 @@ export const Service: React.FC = () => {
               <Stack.Screen
                 name={SCREEN.CHALLENGE_DETAIL}
                 component={ChallengeDetailScreen}
+              />
+              <Stack.Screen
+                name={SCREEN.VIEW_MORE_CHALLENGE}
+                component={ViewMoreChallengeScreen}
               />
             </>
           ) : (

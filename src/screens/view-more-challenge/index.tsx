@@ -2,28 +2,32 @@ import React from 'react';
 import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {AppLayout} from 'src/components';
 import {SCREEN} from 'src/constant';
+import {useChallenge} from 'src/hooks/query/useChallenge';
+import {hp} from 'src/utils';
 
 import {styles} from './styles';
 
 export const ViewMoreChallengeScreen: React.FC = () => {
+  const {data: joinChallenge} = useChallenge();
+
   return (
-    <AppLayout
-      route={SCREEN.HOME}
-      direction="row"
-      title="현재 참여중인 챌린지 :)">
-      <ScrollView>
+    <AppLayout title="참여 중인 챌린지" route={SCREEN.HOME}>
+      <ScrollView style={{marginTop: hp(30)}}>
         <View style={styles.viewMoreChallengeScreenContentContainer}>
-          {Array.from(Array(8).keys()).map((_, key) => {
+          {joinChallenge?.map((v, key) => {
             return (
               <TouchableOpacity
                 key={key + 1}
                 style={styles.viewMoreChallengeScreenContentWrapper}>
-                <Image source={require('src/assets/challenge-image.png')} />
+                <Image
+                  style={styles.imageStyle}
+                  source={require('src/assets/challenge-image.png')}
+                />
                 <Text style={styles.viewMoreChallengeScreenContentDescription}>
-                  한강 청소하기
+                  {v.name}
                 </Text>
                 <Text style={styles.viewMoreChallengeScreenContentDateText}>
-                  오늘 시작한 챌린지에요 :)
+                  {v.description}
                 </Text>
                 <View style={styles.viewMoreChallengeScreenContentTagWrapper}>
                   <Text style={styles.viewMoreChallengeScreenContentTag}>

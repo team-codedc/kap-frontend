@@ -236,4 +236,9 @@ export const styles = StyleSheet.create({
     fontSize: fp(17),
     fontFamily: SpoqaHanSansNeo.regular,
   },
+  imageStyle: {
+    width: wp(160),
+    height: hp(115),
+    borderRadius: hp(10),
+  },
 });

@@ -6,7 +6,12 @@ export const styles = StyleSheet.create({
   viewMoreChallengeScreenContentContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingLeft: wp(5),
+    paddingLeft: wp(11),
+  },
+  imageStyle: {
+    width: wp(150),
+    height: hp(115),
+    borderRadius: hp(10),
   },
   viewMoreChallengeScreenContentWrapper: {
     paddingRight: wp(4),
