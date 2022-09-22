@@ -41,6 +41,15 @@ export const getDetailChallenge = async (
   return data;
 };
 
+export const getJoinChallenge = async (
+  id: string,
+): Promise<APIResponse<MyChallengeResponse[]>> => {
+  const {data} = await instance.post<APIResponse<MyChallengeResponse[]>>(
+    `${API_SUFFIX.JOIN_CHALLENGE}/${id}`,
+  );
+  return data;
+};
+
 export const getAllChallenge = async (): Promise<
   APIResponse<MyChallengeResponse[]>
 > => {

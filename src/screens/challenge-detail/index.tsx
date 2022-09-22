@@ -8,27 +8,38 @@ import {useNavigation} from 'src/hooks';
 
 import {styles} from './styles';
 import {useDetailChallenge} from 'src/hooks/query/useChallenge';
+import {getJoinChallenge} from 'src/api/challenge';
 
 export const ChallengeDetailScreen: React.FC = () => {
   const {navigate} = useNavigation();
   const {data: challenge}: any = useDetailChallenge();
 
   const onSubmit = () => {
-    navigate(SCREEN.HOME);
-    Toast.show({
-      type: 'success',
-      text1: '챌린지가 시작되었습니다! :)',
-    });
+    console.log(challenge.id);
+    getJoinChallenge(challenge.id)
+      .then(() => {
+        navigate(SCREEN.HOME);
+        Toast.show({
+          type: 'success',
+          text1: '챌린지가 시작되었습니다! :)',
+        });
+      })
+      .catch(() => {
+        Toast.show({
+          type: 'error',
+          text1: '이미 챌린지에 참여하고 있어요:)',
+        });
+      });
   };
 
   return (
-    <AppLayout>
+    <AppLayout route={SCREEN.MAP}>
       <ScrollView>
         <View style={styles.challengeDetailWrapper}>
           <View style={styles.challengeDetailTitleContainer}>
             <View style={styles.challengeDetailTitleWrapper}>
               <Text style={styles.challengeDetailTitleText}>
-                {challenge.name}
+                {challenge?.name}
               </Text>
               <Image source={require('src/assets/link-horizontal.png')} />
             </View>
