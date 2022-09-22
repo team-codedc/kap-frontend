@@ -5,21 +5,14 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {MapView} from 'src/components';
 import {SCREEN} from 'src/constant';
 import {useNavigation} from 'src/hooks';
-// import {globalAccessTokenState} from 'src/store';
+import {useAllChallenge} from 'src/hooks/query/useChallenge';
 import {styles} from './styles';
 
 export const MapScreen: React.FC = () => {
   const cameraRef = useRef<MapboxGL.Camera>(null);
-  // const queryClient = useQueryClient();
   const {width} = useWindowDimensions();
-  // const setGlobalAccessToken = useSetRecoilState(globalAccessTokenState);
   const {navigate} = useNavigation();
-
-  // const handlePressLogout = async () => {
-  //   queryClient.getQueryCache().clear();
-  //   setGlobalAccessToken('');
-  //   await AsyncStorage.setItem('@token', '');
-  // };
+  const {data: challenge} = useAllChallenge();
 
   return (
     <View style={styles.screenContainer}>
@@ -29,9 +22,44 @@ export const MapScreen: React.FC = () => {
           onPress={() => navigate(SCREEN.HOME)}>
           <Image source={require('src/assets/privacy-exit-button.png')} />
         </TouchableOpacity>
-        {/* <View style={styles.overlay} /> */}
       </SafeAreaView>
-      <MapView cameraRef={cameraRef} style={styles.mapbox} showHeading />
+      <MapView cameraRef={cameraRef} style={styles.mapbox} showHeading>
+        <View>
+          <MapboxGL.ShapeSource
+            id="test"
+            shape={{
+              type: 'FeatureCollection',
+              features: challenge?.map(v => ({
+                type: 'Feature',
+                geometry: {type: 'Point', coordinates: [v.lat, v.lng]},
+                id: v.id,
+                properties: {
+                  ...v,
+                },
+              })),
+            }}>
+            <MapboxGL.SymbolLayer
+              id="pointCount_Active"
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{
+                iconImage: 'https://i.imgur.com/K5mevsr.png',
+                iconSize: 0.13,
+                iconRotationAlignment: 'map',
+              }}
+            />
+            <MapboxGL.SymbolLayer
+              id="pointCount"
+              // eslint-disable-next-line react-native/no-inline-styles
+              style={{
+                iconImage: 'https://i.imgur.com/K5mevsr.png',
+                iconSize: 0.12,
+                iconRotationAlignment: 'map',
+                iconAllowOverlap: true,
+              }}
+            />
+          </MapboxGL.ShapeSource>
+        </View>
+      </MapView>
     </View>
   );
 };

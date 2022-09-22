@@ -8,6 +8,8 @@ export interface MyChallengeResponse {
   rule: string;
   description: string;
   category: string;
+  lat: number;
+  lng: number;
   host: {
     id: string;
     createdAt: string;
@@ -26,6 +28,15 @@ export const getMyChallenge = async (
 ): Promise<APIResponse<MyChallengeResponse[]>> => {
   const {data} = await instance.get<APIResponse<MyChallengeResponse[]>>(
     `${API_SUFFIX.MY_CHALLENGE}/${id}`,
+  );
+  return data;
+};
+
+export const getAllChallenge = async (): Promise<
+  APIResponse<MyChallengeResponse[]>
+> => {
+  const {data} = await instance.get<APIResponse<MyChallengeResponse[]>>(
+    `${API_SUFFIX.MY_CHALLENGE}`,
   );
   return data;
 };
