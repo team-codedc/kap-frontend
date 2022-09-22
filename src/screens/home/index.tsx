@@ -4,12 +4,17 @@ import {Image, Text, View, TouchableOpacity, ScrollView} from 'react-native';
 import {DefaultLayout} from 'src/components/layout';
 import {SCREEN} from 'src/constant';
 import {HOME_CATEGORY} from 'src/constant/HomeCategory';
-import {useNavigation} from 'src/hooks';
+import {useNavigation, useProfile} from 'src/hooks';
+import {useMyChallenge} from 'src/hooks/query/useChallenge';
+import {wp} from 'src/utils';
 
 import {styles} from './styles';
 
 export const HomeScreen: React.FC = () => {
   const {navigate} = useNavigation();
+  const {data: user} = useProfile();
+  const {data: challenge} = useMyChallenge();
+
   return (
     <DefaultLayout>
       <View style={styles.homeScreenWrapper}>
@@ -26,16 +31,16 @@ export const HomeScreen: React.FC = () => {
               source={require('../../assets/kakao.png')}
               style={styles.homeScreenHeaderProfileIcon}
             />
-            <Text style={styles.homeScreenHeaderProfileUserName}>최민기님</Text>
+            <Text style={styles.homeScreenHeaderProfileUserName}>
+              {user?.name}님
+            </Text>
           </View>
         </View>
         <View style={styles.homeScreenOptionWrapper}>
           <TouchableOpacity style={styles.homeScreenOptionButton}>
             <Text style={styles.homeScreenOptionFont}>챌린지</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.homeScreenOptionFont}>모임</Text>
-          </TouchableOpacity>
+          <Text style={styles.homeScreenOptionFontDisable}>모임</Text>
         </View>
       </View>
       <View style={styles.homeContentsScreenWrapper}>
@@ -99,11 +104,28 @@ export const HomeScreen: React.FC = () => {
               나의 챌린지
             </Text>
             <TouchableOpacity>
-              <Text style={styles.homeContentsScreenMyChallengeViewMore}>
+              <Text
+                onPress={() => navigate(SCREEN.MY_CHALLENGE)}
+                style={styles.homeContentsScreenMyChallengeViewMore}>
                 더보기
               </Text>
             </TouchableOpacity>
           </View>
+          {challenge?.map((v, i) => {
+            return i < 3 ? (
+              <TouchableOpacity
+                key={i + 1}
+                style={styles.homeContentsScreenMyChallengeButton}>
+                <Image
+                  source={require('src/assets/3d-fluency-idea.png')}
+                  style={{marginRight: wp(10)}}
+                />
+                <Text style={styles.homeContentsScreenMyChallenge}>
+                  {v.name}
+                </Text>
+              </TouchableOpacity>
+            ) : null;
+          })}
           <TouchableOpacity
             onPress={() => navigate(SCREEN.OPEN_CHALLENGE_STEP1)}
             style={styles.homeContentsScreenMyChallengeMakeButton}>

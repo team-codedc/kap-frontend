@@ -9,23 +9,25 @@ import {SCREEN, StackParamList} from './constant';
 import {useProfile} from './hooks';
 import {Toast} from './components';
 import {
+  ChallengeDetailScreen,
   HomeScreen,
   MapScreen,
-  // OnBoardingScreen,
+  MyChallenge,
+  OnBoardingScreen,
   OpenChallengeStep1Screen,
   OpenChallengeStep2Screen,
   OpenChallengeStep3Screen,
   OpenChallengeStep4Screen,
 } from './screens';
-// import {useRecoilState} from 'recoil';
-// import {globalAccessTokenState} from './store';
+import {useRecoilState} from 'recoil';
+import {globalAccessTokenState} from './store';
 
 const Stack = createNativeStackNavigator<StackParamList>();
 
 export const Service: React.FC = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const {isFetched} = useProfile();
-  // const [globalAccessToken] = useRecoilState(globalAccessTokenState);
+  const [globalAccessToken] = useRecoilState(globalAccessTokenState);
 
   useEffect(() => {
     if (isFetched) {
@@ -42,29 +44,47 @@ export const Service: React.FC = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={SCREEN.HOME}
+          initialRouteName={
+            globalAccessToken ? SCREEN.HOME : SCREEN.ON_BOARDING
+          }
           screenOptions={{headerShown: false}}>
-          {/* {globalAccessToken ? ( */}
-          <>
-            <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
-            <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
-            <Stack.Screen
-              name={SCREEN.OPEN_CHALLENGE_STEP1}
-              component={OpenChallengeStep1Screen}
-            />
-            <Stack.Screen
-              name={SCREEN.OPEN_CHALLENGE_STEP2}
-              component={OpenChallengeStep2Screen}
-            />
-            <Stack.Screen
-              name={SCREEN.OPEN_CHALLENGE_STEP3}
-              component={OpenChallengeStep3Screen}
-            />
-            <Stack.Screen
-              name={SCREEN.OPEN_CHALLENGE_STEP4}
-              component={OpenChallengeStep4Screen}
-            />
-          </>
+          {globalAccessToken ? (
+            <>
+              <Stack.Screen name={SCREEN.HOME} component={HomeScreen} />
+              <Stack.Screen name={SCREEN.MAP} component={MapScreen} />
+              <Stack.Screen
+                name={SCREEN.MY_CHALLENGE}
+                component={MyChallenge}
+              />
+              <Stack.Screen
+                name={SCREEN.OPEN_CHALLENGE_STEP1}
+                component={OpenChallengeStep1Screen}
+              />
+              <Stack.Screen
+                name={SCREEN.OPEN_CHALLENGE_STEP2}
+                component={OpenChallengeStep2Screen}
+              />
+              <Stack.Screen
+                name={SCREEN.OPEN_CHALLENGE_STEP3}
+                component={OpenChallengeStep3Screen}
+              />
+              <Stack.Screen
+                name={SCREEN.OPEN_CHALLENGE_STEP4}
+                component={OpenChallengeStep4Screen}
+              />
+              <Stack.Screen
+                name={SCREEN.CHALLENGE_DETAIL}
+                component={ChallengeDetailScreen}
+              />
+            </>
+          ) : (
+            <>
+              <Stack.Screen
+                name={SCREEN.ON_BOARDING}
+                component={OnBoardingScreen}
+              />
+            </>
+          )}
         </Stack.Navigator>
         <Toast />
       </NavigationContainer>

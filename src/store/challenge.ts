@@ -20,3 +20,8 @@ export const glboalCreateChallengeState = atom({
     category: '',
   },
 });
+
+export const globalChallengeDetailIdState = atom<any>({
+  key: 'globalChallengeDetailId',
+  default: '',
+});

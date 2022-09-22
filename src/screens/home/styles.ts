@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {SpoqaHanSansNeo} from 'src/styles';
+import {colors, SpoqaHanSansNeo} from 'src/styles';
 import {fp, hp, wp} from 'src/utils';
 
 export const styles = StyleSheet.create({
@@ -59,15 +59,23 @@ export const styles = StyleSheet.create({
   },
   homeScreenOptionFont: {
     fontSize: fp(25),
-    fontFamily: SpoqaHanSansNeo.medium,
+    fontFamily: SpoqaHanSansNeo.bold,
     color: 'black',
     marginLeft: wp(-3),
     marginBottom: hp(-10),
   },
+  homeScreenOptionFontDisable: {
+    fontSize: fp(25),
+    fontFamily: SpoqaHanSansNeo.bold,
+    color: '#D4D4D4',
+    marginLeft: wp(-3),
+    marginBottom: hp(-10),
+    cursor: 'not-allowed',
+  },
   homeContentsScreenWrapper: {
     width: '100%',
     marginTop: hp(28),
-    marginBottom: hp(230),
+    marginBottom: hp(170),
   },
   homeContentsScreenChoiceBarWrapper: {
     paddingLeft: wp(27),
@@ -99,11 +107,12 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 27,
+    paddingVertical: 20,
+    paddingHorizontal: 27,
   },
   homeContentsScreenParticipationText: {
-    fontSize: fp(18),
-    fontFamily: SpoqaHanSansNeo.regular,
+    fontSize: fp(21),
+    fontFamily: SpoqaHanSansNeo.bold,
     fontWeight: '600',
     color: '#292929',
     letterSpacing: wp(-1),
@@ -187,9 +196,34 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#EDFAF7',
-    paddingHorizontal: 23,
-    paddingVertical: 20,
-    borderRadius: 5,
+    paddingHorizontal: hp(23),
+    paddingVertical: wp(20),
+    borderRadius: hp(5),
+  },
+  homeContentsScreenMyChallengeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
+    marginBottom: hp(10),
+    paddingHorizontal: hp(23),
+    paddingVertical: hp(13),
+    borderRadius: hp(5),
+  },
+  homeContentsScreenMyChallenge: {
+    color: colors.text.primary,
+    fontSize: fp(15),
+    textAlignVertical: 'center',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    letterSpacing: wp(-0.8),
+    fontFamily: SpoqaHanSansNeo.medium,
+  },
+  homeContentsScreenMyChallengeIcon: {
+    width: wp(13),
+    height: hp(13),
+    marginLeft: wp(8),
+    marginRight: wp(20),
   },
   homeContentsScreenNewChallengeIcon: {
     width: 13,

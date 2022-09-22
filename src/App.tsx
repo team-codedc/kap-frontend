@@ -8,7 +8,7 @@ import {useApiError} from './hooks';
 import {Service} from './Service';
 
 MapboxGL.setAccessToken(
-  'pk.eyJ1IjoiaGFuc2VvMDUwNyIsImEiOiJja3U2ZXVtZGUwZm9vMnBwYXNvY2VweDFtIn0.rdqGjFltqrlkS-V9sEWrfg',
+  'pk.eyJ1IjoicmxhZW9kbnIxMDExIiwiYSI6ImNsOGFlc3I5NDAzZXIzd21zdW9sdzljbGUifQ.gpp8QxY50AycloRnhJLq8A',
 );
 
 GoogleSignin.configure({

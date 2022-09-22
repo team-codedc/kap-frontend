@@ -2,6 +2,8 @@ import MapboxGL from '@rnmapbox/maps';
 import {CameraRef} from '@rnmapbox/maps/javascript/components/Camera';
 import React, {useEffect, useState} from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
+import {useSetRecoilState} from 'recoil';
+import {globalUserLcoation} from 'src/store';
 
 import {getLocation} from 'src/utils/getLocation';
 
@@ -26,9 +28,10 @@ export const MapView: React.FC<MapViewProps> = ({
   children,
   showHeading,
   style,
-  styleURL = 'mapbox://styles/hanseo0507/cl71ocl8q000015td0zgfengv',
+  styleURL = 'mapbox://styles/rlaeodnr1011/cl8af66c1000t15obdpwh5mzo',
   updateUserLocationInterval = 1000,
 }) => {
+  const setGlobalLocation = useSetRecoilState(globalUserLcoation);
   const [location, setLocation] = useState<Location>({
     lat: 0,
     lng: 0,
@@ -52,6 +55,7 @@ export const MapView: React.FC<MapViewProps> = ({
     (async () => {
       const locationData = await getFormattedLocation();
       setCameraCenterCoords([locationData.lng, locationData.lat]);
+      setGlobalLocation({lng: locationData.lng, lat: locationData.lat});
     })();
   }, []);
 
@@ -101,7 +105,7 @@ export const MapView: React.FC<MapViewProps> = ({
       attributionEnabled={false}
       scaleBarEnabled={false}
       localizeLabels={true}
-
+      zoomEnabled={true}
       // onTouchStart={() => setIsTouching(true)}
       // onTouchEnd={() => setIsTouching(false)}
     >
@@ -114,7 +118,7 @@ export const MapView: React.FC<MapViewProps> = ({
               showHeading && location.heading !== null
                 ? require('src/assets/mapbox/location-with-heading.png')
                 : require('src/assets/mapbox/location.png'),
-            iconSize: 0.8,
+            iconSize: 2,
             iconRotate: location.heading !== null ? location.heading : 0,
             iconRotationAlignment: 'map',
             iconAllowOverlap: true,

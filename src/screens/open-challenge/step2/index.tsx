@@ -11,8 +11,6 @@ import {styles} from './styles';
 import {hp, wp} from 'src/utils';
 
 export const OpenChallengeStep2Screen: React.FC = () => {
-  // const [multiSliderValue, setMultiSliderValue] = useState(0);
-
   const cameraRef = useRef<MapboxGL.Camera>(null);
   const {navigate} = useNavigation();
 
