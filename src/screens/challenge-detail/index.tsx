@@ -33,7 +33,7 @@ export const ChallengeDetailScreen: React.FC = () => {
   };
 
   return (
-    <AppLayout route={SCREEN.MAP}>
+    <AppLayout route={SCREEN.HOME}>
       <ScrollView>
         <View style={styles.challengeDetailWrapper}>
           <View style={styles.challengeDetailTitleContainer}>
